@@ -45,7 +45,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
         gerenciarMenu.setText("Gerenciar");
 
-        gerenciar_alunosMenuItem.setText(" Alunos");
+        gerenciar_alunosMenuItem.setText("Alunos");
         gerenciar_alunosMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 gerenciar_alunosMenuItemActionPerformed(evt);
