@@ -36,15 +36,12 @@ public class CadastrarInstrutor extends javax.swing.JFrame {
         cpf_instrutorLabel = new javax.swing.JLabel();
         cpf_TextField = new javax.swing.JTextField();
         data_nascimento_instrutorLabel = new javax.swing.JLabel();
-        data_nascimento_TextField = new javax.swing.JTextField();
         cref_instrutorLabel = new javax.swing.JLabel();
-        cref_TextField = new javax.swing.JTextField();
         nome_rua_Label = new javax.swing.JLabel();
         logradouro_TextField = new javax.swing.JTextField();
         bairro_Label = new javax.swing.JLabel();
         bairro_TextField = new javax.swing.JTextField();
         numero_Label = new javax.swing.JLabel();
-        numero_TextField = new javax.swing.JTextField();
         cep_Label = new javax.swing.JLabel();
         cep_TextField = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
@@ -52,8 +49,14 @@ public class CadastrarInstrutor extends javax.swing.JFrame {
         alterar_instrutorButton = new javax.swing.JButton();
         remover_instrutorButton = new javax.swing.JButton();
         consultar_instrutorButton = new javax.swing.JButton();
+        limparButton = new javax.swing.JButton();
         lista_instrutorLabel = new javax.swing.JLabel();
         lista_instrutoresComboBox = new javax.swing.JComboBox<>();
+        data_nascimento_TextField = new javax.swing.JFormattedTextField();
+        cref_TextField = new javax.swing.JFormattedTextField();
+        numero_TextField1 = new javax.swing.JFormattedTextField();
+        jLabel1 = new javax.swing.JLabel();
+        cidade_TextField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new java.awt.GridBagLayout());
@@ -117,13 +120,6 @@ public class CadastrarInstrutor extends javax.swing.JFrame {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
         gridBagConstraints.insets = new java.awt.Insets(0, 40, 0, 0);
         getContentPane().add(data_nascimento_instrutorLabel, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.ipadx = 98;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        gridBagConstraints.insets = new java.awt.Insets(0, 1, 0, 1);
-        getContentPane().add(data_nascimento_TextField, gridBagConstraints);
 
         cref_instrutorLabel.setText("CREF:");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -131,13 +127,6 @@ public class CadastrarInstrutor extends javax.swing.JFrame {
         gridBagConstraints.gridy = 4;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
         getContentPane().add(cref_instrutorLabel, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.ipadx = 51;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        gridBagConstraints.insets = new java.awt.Insets(0, 1, 0, 1);
-        getContentPane().add(cref_TextField, gridBagConstraints);
 
         nome_rua_Label.setText("Nome da Rua:");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -180,18 +169,11 @@ public class CadastrarInstrutor extends javax.swing.JFrame {
         gridBagConstraints.gridy = 5;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
         getContentPane().add(numero_Label, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.ipadx = 20;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 62);
-        getContentPane().add(numero_TextField, gridBagConstraints);
 
         cep_Label.setText("CEP:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridy = 7;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
         getContentPane().add(cep_Label, gridBagConstraints);
 
@@ -202,7 +184,7 @@ public class CadastrarInstrutor extends javax.swing.JFrame {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridy = 7;
         gridBagConstraints.ipadx = 98;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 62);
@@ -216,6 +198,13 @@ public class CadastrarInstrutor extends javax.swing.JFrame {
 
         consultar_instrutorButton.setText("Consultar");
 
+        limparButton.setText("Limpar");
+        limparButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                limparButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -228,6 +217,8 @@ public class CadastrarInstrutor extends javax.swing.JFrame {
                 .addComponent(remover_instrutorButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(consultar_instrutorButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(limparButton)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -238,17 +229,19 @@ public class CadastrarInstrutor extends javax.swing.JFrame {
                     .addComponent(cadastrar_instrutorButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(alterar_instrutorButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(remover_instrutorButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(consultar_instrutorButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(consultar_instrutorButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(limparButton))))
         );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridy = 8;
         gridBagConstraints.gridwidth = 3;
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.ipadx = 20;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 30, 111);
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 30, 60);
         getContentPane().add(jPanel1, gridBagConstraints);
 
         lista_instrutorLabel.setText("Lista de Instrutores:");
@@ -259,11 +252,51 @@ public class CadastrarInstrutor extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(53, 0, 0, 0);
         getContentPane().add(lista_instrutorLabel, gridBagConstraints);
 
-        lista_instrutoresComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LAST_LINE_START;
         getContentPane().add(lista_instrutoresComboBox, gridBagConstraints);
+
+        data_nascimento_TextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
+        data_nascimento_TextField.setText("(dd/mm/aaaa)");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.ipadx = 13;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.insets = new java.awt.Insets(0, 1, 0, 31);
+        getContentPane().add(data_nascimento_TextField, gridBagConstraints);
+
+        cref_TextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("######"))));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.ipadx = 98;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.insets = new java.awt.Insets(0, 1, 0, 0);
+        getContentPane().add(cref_TextField, gridBagConstraints);
+
+        numero_TextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("######"))));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.ipadx = 20;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        getContentPane().add(numero_TextField1, gridBagConstraints);
+
+        jLabel1.setText("Cidade:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 7;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        getContentPane().add(jLabel1, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 7;
+        gridBagConstraints.ipadx = 98;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.insets = new java.awt.Insets(0, 1, 0, 2);
+        getContentPane().add(cidade_TextField, gridBagConstraints);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -279,6 +312,10 @@ public class CadastrarInstrutor extends javax.swing.JFrame {
     private void cep_TextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cep_TextFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cep_TextFieldActionPerformed
+
+    private void limparButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limparButtonActionPerformed
+        //limparCampos();
+    }//GEN-LAST:event_limparButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -323,14 +360,17 @@ public class CadastrarInstrutor extends javax.swing.JFrame {
     private javax.swing.JButton cadastrar_instrutorButton;
     private javax.swing.JLabel cep_Label;
     private javax.swing.JTextField cep_TextField;
+    private javax.swing.JTextField cidade_TextField;
     private javax.swing.JButton consultar_instrutorButton;
     private javax.swing.JTextField cpf_TextField;
     private javax.swing.JLabel cpf_instrutorLabel;
-    private javax.swing.JTextField cref_TextField;
+    private javax.swing.JFormattedTextField cref_TextField;
     private javax.swing.JLabel cref_instrutorLabel;
-    private javax.swing.JTextField data_nascimento_TextField;
+    private javax.swing.JFormattedTextField data_nascimento_TextField;
     private javax.swing.JLabel data_nascimento_instrutorLabel;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton limparButton;
     private javax.swing.JLabel lista_instrutorLabel;
     private javax.swing.JComboBox<String> lista_instrutoresComboBox;
     private javax.swing.JTextField logradouro_TextField;
@@ -338,7 +378,7 @@ public class CadastrarInstrutor extends javax.swing.JFrame {
     private javax.swing.JLabel nome_instrutorLabel;
     private javax.swing.JLabel nome_rua_Label;
     private javax.swing.JLabel numero_Label;
-    private javax.swing.JTextField numero_TextField;
+    private javax.swing.JFormattedTextField numero_TextField1;
     private javax.swing.JButton remover_instrutorButton;
     private javax.swing.JTextField sobrenome_TextField;
     private javax.swing.JLabel sobrenome_instrutorLabel;

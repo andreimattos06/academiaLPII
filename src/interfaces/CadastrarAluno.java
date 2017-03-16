@@ -302,7 +302,7 @@ public class CadastrarAluno extends javax.swing.JFrame {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         getContentPane().add(peso_TextField, gridBagConstraints);
 
-        numero_TextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
+        numero_TextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("######"))));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 5;
@@ -455,6 +455,7 @@ public class CadastrarAluno extends javax.swing.JFrame {
         peso_TextField.setText("");
         numero_TextField.setText("");
         altura_TextField.setText("");
+        cidade_TextField.setText("");    
     }
     
 }
