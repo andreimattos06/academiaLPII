@@ -6,6 +6,11 @@
 
 package interfaces;
 
+import entidade.Instrutor;
+import entidade.Endereço;
+import java.util.Date;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author 05320469195
@@ -54,7 +59,7 @@ public class CadastrarInstrutor extends javax.swing.JFrame {
         lista_instrutoresComboBox = new javax.swing.JComboBox<>();
         data_nascimento_TextField = new javax.swing.JFormattedTextField();
         cref_TextField = new javax.swing.JFormattedTextField();
-        numero_TextField1 = new javax.swing.JFormattedTextField();
+        numero_TextField = new javax.swing.JFormattedTextField();
         jLabel1 = new javax.swing.JLabel();
         cidade_TextField = new javax.swing.JTextField();
 
@@ -191,6 +196,11 @@ public class CadastrarInstrutor extends javax.swing.JFrame {
         getContentPane().add(cep_TextField, gridBagConstraints);
 
         cadastrar_instrutorButton.setText("Cadastrar");
+        cadastrar_instrutorButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cadastrar_instrutorButtonActionPerformed(evt);
+            }
+        });
 
         alterar_instrutorButton.setText("Alterar");
 
@@ -276,13 +286,13 @@ public class CadastrarInstrutor extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(0, 1, 0, 0);
         getContentPane().add(cref_TextField, gridBagConstraints);
 
-        numero_TextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("######"))));
+        numero_TextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("######"))));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 5;
         gridBagConstraints.ipadx = 20;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        getContentPane().add(numero_TextField1, gridBagConstraints);
+        getContentPane().add(numero_TextField, gridBagConstraints);
 
         jLabel1.setText("Cidade:");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -316,6 +326,10 @@ public class CadastrarInstrutor extends javax.swing.JFrame {
     private void limparButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limparButtonActionPerformed
         //limparCampos();
     }//GEN-LAST:event_limparButtonActionPerformed
+
+    private void cadastrar_instrutorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrar_instrutorButtonActionPerformed
+        obterInstrutor();
+    }//GEN-LAST:event_cadastrar_instrutorButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -378,9 +392,36 @@ public class CadastrarInstrutor extends javax.swing.JFrame {
     private javax.swing.JLabel nome_instrutorLabel;
     private javax.swing.JLabel nome_rua_Label;
     private javax.swing.JLabel numero_Label;
-    private javax.swing.JFormattedTextField numero_TextField1;
+    private javax.swing.JFormattedTextField numero_TextField;
     private javax.swing.JButton remover_instrutorButton;
     private javax.swing.JTextField sobrenome_TextField;
     private javax.swing.JLabel sobrenome_instrutorLabel;
     // End of variables declaration//GEN-END:variables
+
+    
+private Instrutor obterInstrutor(){
+        String nome = null, sobrenome = null, cpf = null, data_nascimento = null, logradouro = null, bairro = null, cep = null, num = null, cidade = null, cref = null;
+        int ano, mes, dia;
+         nome = nome_TextField.getText();
+         sobrenome = sobrenome_TextField.getText();
+         cpf = cpf_TextField.getText();
+         data_nascimento = data_nascimento_TextField.getText();
+         cref = cref_TextField.getText();
+         logradouro = logradouro_TextField.getText();
+         bairro = bairro_TextField.getText();
+         cidade = cidade_TextField.getText();
+         cep = cep_TextField.getText();
+         num = numero_TextField.getText();
+        
+      if (nome.isEmpty() || sobrenome.isEmpty() || cpf.isEmpty() || data_nascimento.isEmpty() || logradouro.isEmpty() || bairro.isEmpty() || cep.isEmpty() || num.isEmpty() || cidade.isEmpty() || cref.isEmpty() || data_nascimento_TextField.getText().equals("(dd/mm/aaaa)")){
+            JOptionPane.showMessageDialog(this, "Algum campo está em branco.", "ERRO!", JOptionPane.INFORMATION_MESSAGE);
+            return null;
+        }
+      dia = Integer.parseInt(Character.toString(data_nascimento.charAt(0)) + Character.toString(data_nascimento.charAt(1)));
+      mes = Integer.parseInt(Character.toString(data_nascimento.charAt(3)) + Character.toString(data_nascimento.charAt(4)));
+      ano = Integer.parseInt(Character.toString(data_nascimento.charAt(6)) + Character.toString(data_nascimento.charAt(7)) + Character.toString(data_nascimento.charAt(8))+ Character.toString(data_nascimento.charAt(9)));
+        return new Instrutor(nome, sobrenome, cpf, new Date(ano, mes, dia), Integer.parseInt(cref), new Endereço(logradouro, bairro, cep, Integer.parseInt(num), cidade));
+    }
+
+
 }

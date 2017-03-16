@@ -434,7 +434,7 @@ public class CadastrarAluno extends javax.swing.JFrame {
          altura = altura_TextField.getText();
          num = numero_TextField.getText();
         
-      if (nome.isEmpty() || sobrenome.isEmpty() || cpf.isEmpty() || data_nascimento.isEmpty() || logradouro.isEmpty() || bairro.isEmpty() || cep.isEmpty() || peso.isEmpty() ||altura.isEmpty() || num.isEmpty() || cidade.isEmpty()){
+      if (nome.isEmpty() || sobrenome.isEmpty() || cpf.isEmpty() || data_nascimento.isEmpty() || logradouro.isEmpty() || bairro.isEmpty() || cep.isEmpty() || peso.isEmpty() ||altura.isEmpty() || num.isEmpty() || cidade.isEmpty() || data_nascimento_TextField.getText().equals("(dd/mm/aaaa)")){
             JOptionPane.showMessageDialog(this, "Algum campo está em branco.", "ERRO!", JOptionPane.INFORMATION_MESSAGE);
             return null;
         }

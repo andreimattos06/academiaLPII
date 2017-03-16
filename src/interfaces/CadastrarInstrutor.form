@@ -210,6 +210,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Cadastrar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cadastrar_instrutorButtonActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="alterar_instrutorButton">
           <Properties>
@@ -286,7 +289,7 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="javax.swing.JFormattedTextField" name="numero_TextField1">
+    <Component class="javax.swing.JFormattedTextField" name="numero_TextField">
       <Properties>
         <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
           <Format format="######" subtype="-1" type="0"/>
