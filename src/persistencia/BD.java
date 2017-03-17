@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class BD {
-static final String URL_BD = "jdbc:mysql://localhost:3306/?user=root";
+static final String URL_BD = "jdbc:mysql://localhost:3306/academia?zeroDateTimeBehavior=convertToNull";
 static final String USUÁRIO = "root";
 static final String SENHA = "admin";
 public static Connection conexão = null;

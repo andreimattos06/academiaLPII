@@ -366,7 +366,7 @@ public class CadastrarAluno extends javax.swing.JFrame {
          nome_TextField.setText(aluno.getNome());
          sobrenome_TextField.setText(aluno.getSobrenome());
          cpf_TextField.setText(aluno.getCPF());
-         data_nascimento_TextField.setText(aluno.getData_nascimento().getDay() + "/" + aluno.getData_nascimento().getMonth() + "/" + aluno.getData_nascimento().getYear());
+         data_nascimento_TextField.setText(aluno.getData_nascimento().toLocaleString().substring(0, 10));
          logradouro_TextField.setText(aluno.getEndereço().getLogradouro());
          bairro_TextField.setText(aluno.getEndereço().getBairro());
          cidade_TextField.setText(aluno.getEndereço().getCidade());

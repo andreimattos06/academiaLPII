@@ -17,7 +17,6 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     public JanelaPrincipal() {
         BD.criaConexão();
         initComponents();
-        BD.fechaConexão();
     }
 
     /**
@@ -39,6 +38,11 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         jMenuItem4.setText("jMenuItem4");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         gerenciarMenu.setText("Gerenciar");
 
@@ -87,6 +91,10 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
     }//GEN-LAST:event_gerenciar_instrutoresMenuItemActionPerformed
 
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        BD.fechaConexão();
+    }//GEN-LAST:event_formWindowClosed
+
     /**
      * @param args the command line arguments
      */
@@ -121,6 +129,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             }
         });
     }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar barra_menuMenuBar;

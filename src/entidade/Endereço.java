@@ -65,7 +65,7 @@ public Endereço(String logradouro, String bairro, String CEP, int numero, Strin
         ResultSet resultado = null;
         Endereço endereço = null;
         if (id == 0){
-            String sql = "SELECT logradouro, bairro, numero, cidade FROM enderecoa" + " WHERE CPF = ?";
+            String sql = "SELECT logradouro, bairro, numero, cep, cidade FROM enderecoa" + " WHERE CPF = ?";
             try{
                 PreparedStatement comando = BD.conexão.prepareStatement(sql);
                 comando.setString(1, cpf);
