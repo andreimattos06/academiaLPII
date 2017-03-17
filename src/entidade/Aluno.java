@@ -2,6 +2,11 @@
 package entidade;
 
 import java.util.Date;
+import persistencia.BD;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.PreparedStatement;
+import entidade.Endereço;
 
 
 public class Aluno {
@@ -78,7 +83,27 @@ public Aluno(String nome, String sobrenome, String CPF, Date data_nascimento, fl
         return endereço;
     }
     
-    
+    public static Aluno buscarAluno(String cpf){
+        String sql = "SELECT nome, sobrenome, data_nascimento, peso, altura FROM aluno" + " WHERE CPF = ?";
+        ResultSet resultado = null;
+        Aluno aluno = null;
+        
+        try{
+            PreparedStatement comando = BD.conexão.prepareStatement(sql);
+            comando.setString(1, cpf);
+            resultado = comando.executeQuery();
+            while(resultado.next()){
+                System.out.println("EOQQQQQ");
+                aluno = new Aluno (resultado.getString("nome"), resultado.getString("sobrenome"), cpf, resultado.getDate("data_nascimento"), resultado.getFloat("peso"), resultado.getFloat("altura"), Endereço.buscarEndereço(cpf, 0) );
+            }
+            resultado.close();
+            
+        }catch (SQLException exceção){
+            exceção.printStackTrace();
+            return null;
+        }
+        return aluno;
+    }
     
     
 }

@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import java.util.Date;
 import entidade.Aluno;
 import entidade.Endereço;
+import controlador.ControladorCadastroAluno;
 
 /**
  *
@@ -17,10 +18,10 @@ import entidade.Endereço;
  */
 public class CadastrarAluno extends javax.swing.JFrame {
 
-    /**
-     * Creates new form CadastrarAluno
-     */
-    public CadastrarAluno() {
+    ControladorCadastroAluno controlador;
+    
+    public CadastrarAluno(ControladorCadastroAluno controlador) {
+        this.controlador = controlador;
         initComponents();
     }
 
@@ -216,6 +217,11 @@ public class CadastrarAluno extends javax.swing.JFrame {
         remover_alunoButton.setText("Remover");
 
         consultar_alunoButton.setText("Consultar");
+        consultar_alunoButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                consultar_alunoButtonActionPerformed(evt);
+            }
+        });
 
         limparButton.setText("Limpar");
         limparButton.addActionListener(new java.awt.event.ActionListener() {
@@ -341,8 +347,10 @@ public class CadastrarAluno extends javax.swing.JFrame {
 
     private void cadastrar_alunoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrar_alunoButtonActionPerformed
         Aluno aluno = obterAluno();
+        String erro = null;
        
         if (aluno != null){
+
            
         }
     }//GEN-LAST:event_cadastrar_alunoButtonActionPerformed
@@ -350,6 +358,29 @@ public class CadastrarAluno extends javax.swing.JFrame {
     private void limparButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limparButtonActionPerformed
         limparCampos();
     }//GEN-LAST:event_limparButtonActionPerformed
+
+    private void consultar_alunoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultar_alunoButtonActionPerformed
+        Aluno aluno;
+        aluno = Aluno.buscarAluno(cpf_TextField.getText());
+        if (aluno != null){
+         nome_TextField.setText(aluno.getNome());
+         sobrenome_TextField.setText(aluno.getSobrenome());
+         cpf_TextField.setText(aluno.getCPF());
+         data_nascimento_TextField.setText(aluno.getData_nascimento().getDay() + "/" + aluno.getData_nascimento().getMonth() + "/" + aluno.getData_nascimento().getYear());
+         logradouro_TextField.setText(aluno.getEndereço().getLogradouro());
+         bairro_TextField.setText(aluno.getEndereço().getBairro());
+         cidade_TextField.setText(aluno.getEndereço().getCidade());
+         cep_TextField.setText(aluno.getEndereço().getCEP());
+         peso_TextField.setText(Float.toString(aluno.getPeso()));
+         altura_TextField.setText(Float.toString(aluno.getAltura()));
+         numero_TextField.setText(Integer.toString(aluno.getEndereço().getNumero()));
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "O CPF não foi encontrado!", "ERRO!", JOptionPane.INFORMATION_MESSAGE);
+            
+        }
+         
+    }//GEN-LAST:event_consultar_alunoButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -381,7 +412,7 @@ public class CadastrarAluno extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CadastrarAluno().setVisible(true);
+            
             }
         });
     }

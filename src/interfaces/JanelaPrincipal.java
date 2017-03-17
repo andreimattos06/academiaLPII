@@ -7,11 +7,8 @@
 package interfaces;
 
 import persistencia.BD;
+import controlador.ControladorCadastroAluno;
 
-/**
- *
- * @author 05320469195
- */
 public class JanelaPrincipal extends javax.swing.JFrame {
 
     /**
@@ -83,11 +80,11 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void gerenciar_alunosMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gerenciar_alunosMenuItemActionPerformed
-    new CadastrarAluno().setVisible(true);
+        new ControladorCadastroAluno();
     }//GEN-LAST:event_gerenciar_alunosMenuItemActionPerformed
 
     private void gerenciar_instrutoresMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gerenciar_instrutoresMenuItemActionPerformed
-        new CadastrarInstrutor().setVisible(true);
+
     }//GEN-LAST:event_gerenciar_instrutoresMenuItemActionPerformed
 
     /**
