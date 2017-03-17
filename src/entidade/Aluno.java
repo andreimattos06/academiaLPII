@@ -91,6 +91,7 @@ public Aluno(String nome, String sobrenome, String CPF, Date data_nascimento, fl
         try{
             PreparedStatement comando = BD.conexão.prepareStatement(sql);
             comando.setString(1, cpf);
+            System.out.println("EOQQQQQ");
             resultado = comando.executeQuery();
             while(resultado.next()){
                 System.out.println("EOQQQQQ");
