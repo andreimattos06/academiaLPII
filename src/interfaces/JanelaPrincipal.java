@@ -9,6 +9,7 @@ package interfaces;
 import persistencia.BD;
 import controlador.ControladorCadastroAluno;
 import controlador.ControladorCadastroInstrutor;
+import controlador.ControladorCadastroFichaTreino;
 
 public class JanelaPrincipal extends javax.swing.JFrame {
 
@@ -64,6 +65,11 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         gerenciarMenu.add(gerenciar_instrutoresMenuItem);
 
         fichas_treinoMenuItem.setText("Fichas de Treino");
+        fichas_treinoMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fichas_treinoMenuItemActionPerformed(evt);
+            }
+        });
         gerenciarMenu.add(fichas_treinoMenuItem);
 
         barra_menuMenuBar.add(gerenciarMenu);
@@ -95,6 +101,10 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         BD.fechaConexão();
     }//GEN-LAST:event_formWindowClosed
+
+    private void fichas_treinoMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fichas_treinoMenuItemActionPerformed
+        new ControladorCadastroFichaTreino();
+    }//GEN-LAST:event_fichas_treinoMenuItemActionPerformed
 
     /**
      * @param args the command line arguments

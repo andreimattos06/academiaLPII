@@ -307,7 +307,7 @@ public class CadastrarInstrutor extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 5;
-        gridBagConstraints.ipadx = 20;
+        gridBagConstraints.ipadx = 30;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         getContentPane().add(numero_TextField, gridBagConstraints);
 
