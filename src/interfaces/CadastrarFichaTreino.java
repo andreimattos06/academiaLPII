@@ -698,7 +698,7 @@ public class CadastrarFichaTreino extends javax.swing.JFrame {
         else
             sabado = null;
         
-        if(aluno != null || instrutor != null || !horario.isEmpty() || segunda != null || terca != null || quarta != null || quinta != null || sexta != null || sabado != null){
+        if(aluno != null && instrutor != null && !horario.isEmpty()){
             return new Ficha_Treino(Aluno.buscarAluno(aluno.getChave()), Instrutor.buscarInstrutor(instrutor.getChave()), horario, segunda, terca, quarta, quinta, sexta, sabado);
         }
         else{
