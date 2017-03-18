@@ -16,7 +16,7 @@ public class ControladorCadastroInstrutor {
              return Instrutor.inserirInstrutor(novo);
          }
          else
-            return "CPF já cadastrado.";
+            return "CREF já cadastrado.";
         
     };
     
