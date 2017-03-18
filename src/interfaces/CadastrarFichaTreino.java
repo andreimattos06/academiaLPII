@@ -7,6 +7,10 @@ import controlador.ControladorCadastroFichaTreino;
 import entidade.Aluno;
 import entidade.Instrutor;
 import javax.swing.DefaultComboBoxModel;
+import entidade.Ficha_Treino;
+import entidade.Ficha_Treino.TipoTreino;
+import javax.swing.JOptionPane;
+
 
 public class CadastrarFichaTreino extends javax.swing.JFrame {
     
@@ -377,8 +381,18 @@ public class CadastrarFichaTreino extends javax.swing.JFrame {
         removerButton.setText("Remover");
 
         consultarButton.setText("Consultar");
+        consultarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                consultarButtonActionPerformed(evt);
+            }
+        });
 
         limparButton.setText("Limpar");
+        limparButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                limparButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -418,6 +432,83 @@ public class CadastrarFichaTreino extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void limparButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limparButtonActionPerformed
+         limparCampos();
+    }//GEN-LAST:event_limparButtonActionPerformed
+
+    private void consultarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultarButtonActionPerformed
+            Ficha_Treino ficha = null;
+            Visão<String> aluno, instrutor;
+            aluno = (Visão<String>)lista_alunosComboBox.getSelectedItem();
+            instrutor = (Visão<String>)lista_instrutoresComboBox.getSelectedItem();
+            if (aluno != null && instrutor != null){
+                ficha = Ficha_Treino.buscarFichaTreino(aluno.getChave(), instrutor.getChave());
+                if (ficha != null){
+                    horárioTextField.setText(ficha.getHorario());
+                    id_TextField.setText(Integer.toString(ficha.getId()));
+                    if (ficha.getSegunda() == TipoTreino.TreinoA)
+                        segundaARadioButton.setSelected(true);
+                    else if (ficha.getSegunda() == TipoTreino.TreinoB)
+                        segundaBRadioButton.setSelected(true);
+                    else if (ficha.getSegunda() == TipoTreino.TreinoC)
+                        segundaCRadioButton.setSelected(true);
+                    else
+                        segundaNRadioButton.setSelected(true);
+
+                    if (ficha.getTerça()== TipoTreino.TreinoA)
+                       terçaARadioButton.setSelected(true);
+                    else if (ficha.getTerça() == TipoTreino.TreinoB)
+                        terçaBRadioButton.setSelected(true);
+                    else if (ficha.getTerça() == TipoTreino.TreinoC)
+                        terçaCRadioButton.setSelected(true);
+                    else
+                        tercaNRadioButton.setSelected(true);
+
+                    if (ficha.getQuarta()== TipoTreino.TreinoA)
+                       quartaARadioButton.setSelected(true);
+                    else if (ficha.getQuarta() == TipoTreino.TreinoB)
+                        quartaBRadioButton.setSelected(true);
+                    else if (ficha.getQuarta() == TipoTreino.TreinoC)
+                        quartaCRadioButton.setSelected(true);
+                    else
+                        quartaNRadioButton.setSelected(true);
+
+                    if (ficha.getQuinta()== TipoTreino.TreinoA)
+                       quintaARadioButton.setSelected(true);
+                    else if (ficha.getQuinta() == TipoTreino.TreinoB)
+                        quintaBRadioButton.setSelected(true);
+                    else if (ficha.getQuinta() == TipoTreino.TreinoC)
+                        quintaCRadioButton.setSelected(true);
+                    else
+                        tercaNRadioButton.setSelected(true);
+
+                    if (ficha.getSexta()== TipoTreino.TreinoA)
+                       sextaARadioButton.setSelected(true);
+                    else if (ficha.getSexta() == TipoTreino.TreinoB)
+                        sextaBRadioButton.setSelected(true);
+                    else if (ficha.getSexta() == TipoTreino.TreinoC)
+                            sextaCRadioButton.setSelected(true);
+                    else
+                        sextaNRadioButton.setSelected(true);
+
+                    if (ficha.getSabado()== TipoTreino.TreinoA)
+                       sabadoARadioButton.setSelected(true);
+                    else if (ficha.getSabado() == TipoTreino.TreinoB)
+                        sabadoBRadioButton.setSelected(true);
+                    else if (ficha.getSabado() == TipoTreino.TreinoC)
+                            sabadoCRadioButton.setSelected(true);
+                    else
+                        sabadoNRadioButton.setSelected(true);
+               }
+                else
+                     JOptionPane.showMessageDialog(this, "Ficha de treino não encontrada!", "ERRO!", JOptionPane.INFORMATION_MESSAGE);
+ 
+            }
+            else 
+                JOptionPane.showMessageDialog(this, "Aluno ou instrutor não selecionado!", "ERRO!", JOptionPane.INFORMATION_MESSAGE);
+            
+    }//GEN-LAST:event_consultarButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -505,4 +596,18 @@ public class CadastrarFichaTreino extends javax.swing.JFrame {
     private javax.swing.ButtonGroup terçaButtonGroup;
     private javax.swing.JRadioButton terçaCRadioButton;
     // End of variables declaration//GEN-END:variables
+
+
+    public void limparCampos(){
+        horárioTextField.setText("");
+        id_TextField.setText("");
+        segundaButtonGroup.clearSelection();
+        terçaButtonGroup.clearSelection();
+        quartaButtonGroup.clearSelection();
+        quintaButtonGroup.clearSelection();
+        sextaButtonGroup.clearSelection();
+        sabadoButtonGroup.clearSelection();               
+    }
+    
+    
 }
