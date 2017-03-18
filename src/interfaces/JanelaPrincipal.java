@@ -8,6 +8,7 @@ package interfaces;
 
 import persistencia.BD;
 import controlador.ControladorCadastroAluno;
+import controlador.ControladorCadastroInstrutor;
 
 public class JanelaPrincipal extends javax.swing.JFrame {
 
@@ -88,7 +89,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_gerenciar_alunosMenuItemActionPerformed
 
     private void gerenciar_instrutoresMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gerenciar_instrutoresMenuItemActionPerformed
-
+           new ControladorCadastroInstrutor();
     }//GEN-LAST:event_gerenciar_instrutoresMenuItemActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed

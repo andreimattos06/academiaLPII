@@ -228,6 +228,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Consultar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="consultar_instrutorButtonActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="limparButton">
           <Properties>
@@ -251,8 +254,8 @@
     </Component>
     <Component class="javax.swing.JComboBox" name="lista_instrutoresComboBox">
       <Properties>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="0"/>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="new DefaultComboBoxModel(instrutores_cadastrados)" type="code"/>
         </Property>
       </Properties>
       <AuxValues>

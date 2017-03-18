@@ -70,7 +70,7 @@ public Endereço(String logradouro, String bairro, String CEP, int numero, Strin
         }
         
         else{
-            sql = "SELECT logradouro, bairro, numero, cidade FROM enderecoi" + " WHERE cref = ?";
+            sql = "SELECT logradouro, bairro, numero, cep, cidade FROM enderecoi" + " WHERE cref = ?";
         }
             try{
                 PreparedStatement comando = BD.conexão.prepareStatement(sql);

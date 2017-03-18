@@ -1,26 +1,25 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package interfaces;
 
 import entidade.Instrutor;
 import entidade.Endereço;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import controlador.ControladorCadastroInstrutor;
+import entidade.Visão;
+import java.util.Vector;
+import javax.swing.DefaultComboBoxModel;
 
-/**
- *
- * @author 05320469195
- */
+
+
 public class CadastrarInstrutor extends javax.swing.JFrame {
 
-    /**
-     * Creates new form CadastrarAluno
-     */
-    public CadastrarInstrutor() {
+    ControladorCadastroInstrutor controlador;
+    Vector<Visão<String>> instrutores_cadastrados;
+    
+    
+    public CadastrarInstrutor(ControladorCadastroInstrutor controlador) {
+        this.controlador = controlador;
+        instrutores_cadastrados = Instrutor.getVisões();
         initComponents();
     }
 
@@ -207,6 +206,11 @@ public class CadastrarInstrutor extends javax.swing.JFrame {
         remover_instrutorButton.setText("Remover");
 
         consultar_instrutorButton.setText("Consultar");
+        consultar_instrutorButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                consultar_instrutorButtonActionPerformed(evt);
+            }
+        });
 
         limparButton.setText("Limpar");
         limparButton.addActionListener(new java.awt.event.ActionListener() {
@@ -262,6 +266,7 @@ public class CadastrarInstrutor extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(53, 0, 0, 0);
         getContentPane().add(lista_instrutorLabel, gridBagConstraints);
 
+        lista_instrutoresComboBox.setModel(new DefaultComboBoxModel(instrutores_cadastrados));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LAST_LINE_START;
@@ -331,6 +336,34 @@ public class CadastrarInstrutor extends javax.swing.JFrame {
         obterInstrutor();
     }//GEN-LAST:event_cadastrar_instrutorButtonActionPerformed
 
+    private void consultar_instrutorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultar_instrutorButtonActionPerformed
+        Instrutor instrutor;
+        Visão<String> index = ((Visão<String>)lista_instrutoresComboBox.getSelectedItem());
+        if (index != null){
+            instrutor = Instrutor.buscarInstrutor(index.getChave());
+            if (instrutor != null){
+               nome_TextField.setText(instrutor.getNome());
+               sobrenome_TextField.setText(instrutor.getSobrenome());
+               cpf_TextField.setText(instrutor.getCPF());
+               cref_TextField.setText(instrutor.getCref());
+               data_nascimento_TextField.setText(instrutor.getData_nascimento().toLocaleString().substring(0, 10));
+               logradouro_TextField.setText(instrutor.getEndereço().getLogradouro());
+               bairro_TextField.setText(instrutor.getEndereço().getBairro());
+               cidade_TextField.setText(instrutor.getEndereço().getCidade());
+               cep_TextField.setText(instrutor.getEndereço().getCEP());
+               numero_TextField.setText(Integer.toString(instrutor.getEndereço().getNumero()));
+            }
+           else{
+               JOptionPane.showMessageDialog(this, "O CREF não foi encontrado!", "ERRO!", JOptionPane.INFORMATION_MESSAGE);            
+                }
+        }
+        else{
+              JOptionPane.showMessageDialog(this, "Nenhum instrutor selecionado!", "ERRO!", JOptionPane.INFORMATION_MESSAGE);  
+              }
+
+        
+    }//GEN-LAST:event_consultar_instrutorButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -362,7 +395,6 @@ public class CadastrarInstrutor extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CadastrarInstrutor().setVisible(true);
             }
         });
     }
@@ -420,7 +452,7 @@ private Instrutor obterInstrutor(){
       dia = Integer.parseInt(Character.toString(data_nascimento.charAt(0)) + Character.toString(data_nascimento.charAt(1)));
       mes = Integer.parseInt(Character.toString(data_nascimento.charAt(3)) + Character.toString(data_nascimento.charAt(4)));
       ano = Integer.parseInt(Character.toString(data_nascimento.charAt(6)) + Character.toString(data_nascimento.charAt(7)) + Character.toString(data_nascimento.charAt(8))+ Character.toString(data_nascimento.charAt(9)));
-        return new Instrutor(nome, sobrenome, cpf, new Date(ano, mes, dia), Integer.parseInt(cref), new Endereço(logradouro, bairro, cep, Integer.parseInt(num), cidade));
+        return new Instrutor(nome, sobrenome, cpf, new Date(ano, mes, dia), cref, new Endereço(logradouro, bairro, cep, Integer.parseInt(num), cidade));
     }
 
 
