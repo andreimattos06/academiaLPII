@@ -3,7 +3,7 @@ package entidade;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
+import entidade.Data;
 import java.util.Vector;
 import persistencia.BD;
 
@@ -11,10 +11,10 @@ import persistencia.BD;
 public class Instrutor {
     
 private String nome, sobrenome, CPF, cref;
-private Date data_nascimento;
+private Data data_nascimento;
 private Endereço endereço;
 
-public Instrutor(String nome, String sobrenome, String CPF, Date data_nascimento, String cref, Endereço endereço) {
+public Instrutor(String nome, String sobrenome, String CPF, Data data_nascimento, String cref, Endereço endereço) {
     this.nome = nome;
     this.sobrenome = sobrenome;
     this.CPF = CPF;
@@ -47,11 +47,11 @@ public Instrutor(String nome, String sobrenome, String CPF, Date data_nascimento
         this.CPF = CPF;
     }
 
-    public Date getData_nascimento() {
+    public Data getData_nascimento() {
         return data_nascimento;
     }
 
-    public void setData_nascimento(Date data_nascimento) {
+    public void setData_nascimento(Data data_nascimento) {
         this.data_nascimento = data_nascimento;
     }
 
@@ -110,7 +110,7 @@ public Instrutor(String nome, String sobrenome, String CPF, Date data_nascimento
                 instrutor = new Instrutor ( resultado.getString("nome"),
                         resultado.getString("sobrenome"),
                         resultado.getString("cpf"),
-                        resultado.getDate("data_nascimento"),
+                        Data.toDate(resultado.getString("data_nascimento")),
                         cref,
                         Endereço.buscarEndereço(cref, 1) );
             }
@@ -121,6 +121,29 @@ public Instrutor(String nome, String sobrenome, String CPF, Date data_nascimento
             return null;
         }
         return instrutor;
+    }
+    
+    public static String inserirInstrutor (Instrutor novo){
+        String sql = "INSERT INTO Instrutor (Nome, Sobrenome, Cref, Data_Nascimento, CPF)" + "VALUES(?, ?, ?, ?, ?)";
+        
+        try{
+            PreparedStatement comando = BD.conexão.prepareStatement(sql);
+            comando.setString(1, novo.getNome());
+            comando.setString(2, novo.getSobrenome());
+            comando.setString(3, novo.getCref());
+            comando.setString(4, novo.getData_nascimento().toString());
+            comando.setString(5, novo.getCPF());
+            comando.executeUpdate();
+            comando.close();
+            
+            Endereço.inserirEndereço(novo);
+            
+            return null;
+        }catch(SQLException exceção_sql){
+            exceção_sql.printStackTrace();
+            return "Erro Na Inserção no Banco de Dados";
+           
+        }
     }
 
     

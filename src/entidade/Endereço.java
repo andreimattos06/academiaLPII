@@ -87,6 +87,28 @@ public Endereço(String logradouro, String bairro, String CEP, int numero, Strin
             }
             return endereço;
     }
-
-
+    
+    
+    public static String inserirEndereço (Instrutor novo){
+        String sql = "INSERT INTO enderecoi (cref, logradouro, bairro, numero, cidade, cep)" + "VALUES(?, ?, ?, ?, ?, ?)";
+        
+        try{
+            PreparedStatement comando = BD.conexão.prepareStatement(sql);
+            comando.setString(1, novo.getCref());
+            comando.setString(2, novo.getEndereço().getLogradouro());
+            comando.setString(3, novo.getEndereço().getBairro());
+            comando.setInt(4, novo.getEndereço().getNumero());
+            comando.setString(5, novo.getEndereço().getCidade());
+            comando.setString(6, novo.getEndereço().getCEP());
+            comando.executeUpdate();
+            comando.close();
+            
+            return null;
+        }catch(SQLException exceção_sql){
+            exceção_sql.printStackTrace();
+            return "Erro Na Inserção no Banco de Dados";
+        }
+ }
+    
+    
 }

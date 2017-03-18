@@ -2,12 +2,13 @@ package interfaces;
 
 import entidade.Instrutor;
 import entidade.Endereço;
-import java.util.Date;
+import entidade.Data;
 import javax.swing.JOptionPane;
 import controlador.ControladorCadastroInstrutor;
 import entidade.Visão;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
+
 
 
 
@@ -274,6 +275,7 @@ public class CadastrarInstrutor extends javax.swing.JFrame {
 
         data_nascimento_TextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
         data_nascimento_TextField.setText("(dd/mm/aaaa)");
+        data_nascimento_TextField.setMinimumSize(new java.awt.Dimension(74, 30));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 3;
@@ -329,11 +331,26 @@ public class CadastrarInstrutor extends javax.swing.JFrame {
     }//GEN-LAST:event_cep_TextFieldActionPerformed
 
     private void limparButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limparButtonActionPerformed
-        //limparCampos();
+        limparCampos();
     }//GEN-LAST:event_limparButtonActionPerformed
 
     private void cadastrar_instrutorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrar_instrutorButtonActionPerformed
-        obterInstrutor();
+        Instrutor novo = null;
+        novo = obterInstrutor();
+        String erro = null;
+        if (novo != null){
+            erro = ControladorCadastroInstrutor.inserirInstrutor(novo);
+            if (erro != null){
+                JOptionPane.showMessageDialog(this, erro, "ERRO!", JOptionPane.INFORMATION_MESSAGE); 
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "Instrutor inserido com sucesso!", "SUCESSO!", JOptionPane.INFORMATION_MESSAGE); 
+                Visão<String> novavisao = new Visão<String>(novo.getCref(), novo.getNome() + " - " + novo.getCref());
+                instrutores_cadastrados.add(novavisao);
+                lista_instrutoresComboBox.updateUI();
+                lista_instrutoresComboBox.setSelectedItem(novavisao);
+            }
+        }
     }//GEN-LAST:event_cadastrar_instrutorButtonActionPerformed
 
     private void consultar_instrutorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultar_instrutorButtonActionPerformed
@@ -346,7 +363,7 @@ public class CadastrarInstrutor extends javax.swing.JFrame {
                sobrenome_TextField.setText(instrutor.getSobrenome());
                cpf_TextField.setText(instrutor.getCPF());
                cref_TextField.setText(instrutor.getCref());
-               data_nascimento_TextField.setText(instrutor.getData_nascimento().toLocaleString().substring(0, 10));
+               data_nascimento_TextField.setText(instrutor.getData_nascimento().toString());
                logradouro_TextField.setText(instrutor.getEndereço().getLogradouro());
                bairro_TextField.setText(instrutor.getEndereço().getBairro());
                cidade_TextField.setText(instrutor.getEndereço().getCidade());
@@ -433,7 +450,7 @@ public class CadastrarInstrutor extends javax.swing.JFrame {
     
 private Instrutor obterInstrutor(){
         String nome = null, sobrenome = null, cpf = null, data_nascimento = null, logradouro = null, bairro = null, cep = null, num = null, cidade = null, cref = null;
-        int ano, mes, dia;
+        String ano, mes, dia;
          nome = nome_TextField.getText();
          sobrenome = sobrenome_TextField.getText();
          cpf = cpf_TextField.getText();
@@ -449,10 +466,24 @@ private Instrutor obterInstrutor(){
             JOptionPane.showMessageDialog(this, "Algum campo está em branco.", "ERRO!", JOptionPane.INFORMATION_MESSAGE);
             return null;
         }
-      dia = Integer.parseInt(Character.toString(data_nascimento.charAt(0)) + Character.toString(data_nascimento.charAt(1)));
-      mes = Integer.parseInt(Character.toString(data_nascimento.charAt(3)) + Character.toString(data_nascimento.charAt(4)));
-      ano = Integer.parseInt(Character.toString(data_nascimento.charAt(6)) + Character.toString(data_nascimento.charAt(7)) + Character.toString(data_nascimento.charAt(8))+ Character.toString(data_nascimento.charAt(9)));
-        return new Instrutor(nome, sobrenome, cpf, new Date(ano, mes, dia), cref, new Endereço(logradouro, bairro, cep, Integer.parseInt(num), cidade));
+      dia = Character.toString(data_nascimento.charAt(0)) + Character.toString(data_nascimento.charAt(1));
+      mes = Character.toString(data_nascimento.charAt(3)) + Character.toString(data_nascimento.charAt(4));
+      ano = Character.toString(data_nascimento.charAt(6)) + Character.toString(data_nascimento.charAt(7)) + Character.toString(data_nascimento.charAt(8))+ Character.toString(data_nascimento.charAt(9));
+
+        return new Instrutor(nome, sobrenome, cpf, new Data(dia, mes, ano), cref, new Endereço(logradouro, bairro, cep, Integer.parseInt(num), cidade));
+    }
+
+     private void limparCampos(){
+        nome_TextField.setText("");
+        sobrenome_TextField.setText("");
+        cpf_TextField.setText("");
+        cref_TextField.setText("");
+        data_nascimento_TextField.setText("");
+        logradouro_TextField.setText("");
+        bairro_TextField.setText("");
+        cep_TextField.setText("");
+        numero_TextField.setText("");
+        cidade_TextField.setText("");    
     }
 
 
