@@ -8,9 +8,12 @@ package interfaces;
 
 import javax.swing.JOptionPane;
 import java.util.Date;
+import java.util.Vector;
 import entidade.Aluno;
 import entidade.Endereço;
 import controlador.ControladorCadastroAluno;
+import entidade.Visão;
+import javax.swing.DefaultComboBoxModel;
 
 /**
  *
@@ -19,9 +22,11 @@ import controlador.ControladorCadastroAluno;
 public class CadastrarAluno extends javax.swing.JFrame {
 
     ControladorCadastroAluno controlador;
+    Vector<Visão<String>> alunos_cadastrados;
     
     public CadastrarAluno(ControladorCadastroAluno controlador) {
         this.controlador = controlador;
+        alunos_cadastrados = Aluno.getVisões();
         initComponents();
     }
 
@@ -244,7 +249,7 @@ public class CadastrarAluno extends javax.swing.JFrame {
                 .addComponent(consultar_alunoButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(limparButton)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -276,6 +281,12 @@ public class CadastrarAluno extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(53, 0, 0, 0);
         getContentPane().add(lista_alunoLabel, gridBagConstraints);
 
+        lista_alunosComboBox.setModel(new DefaultComboBoxModel(alunos_cadastrados));
+        lista_alunosComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lista_alunosComboBoxActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LAST_LINE_START;
@@ -350,7 +361,7 @@ public class CadastrarAluno extends javax.swing.JFrame {
         String erro = null;
        
         if (aluno != null){
-
+            
            
         }
     }//GEN-LAST:event_cadastrar_alunoButtonActionPerformed
@@ -361,8 +372,13 @@ public class CadastrarAluno extends javax.swing.JFrame {
 
     private void consultar_alunoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultar_alunoButtonActionPerformed
         Aluno aluno;
+        
         aluno = Aluno.buscarAluno(cpf_TextField.getText());
+        
         if (aluno != null){
+         Visão<String> visão = getVisãoAlunosCadastrados(aluno.getCPF());
+         lista_alunosComboBox.setSelectedItem(visão.toString());
+         lista_alunosComboBox.updateUI();
          nome_TextField.setText(aluno.getNome());
          sobrenome_TextField.setText(aluno.getSobrenome());
          cpf_TextField.setText(aluno.getCPF());
@@ -381,6 +397,12 @@ public class CadastrarAluno extends javax.swing.JFrame {
         }
          
     }//GEN-LAST:event_consultar_alunoButtonActionPerformed
+
+    private void lista_alunosComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lista_alunosComboBoxActionPerformed
+        for (Visão<String> visão : alunos_cadastrados) {
+            lista_alunosComboBox.addItem(visão.toString());
+        }
+    }//GEN-LAST:event_lista_alunosComboBoxActionPerformed
 
     /**
      * @param args the command line arguments
@@ -489,5 +511,11 @@ public class CadastrarAluno extends javax.swing.JFrame {
         cidade_TextField.setText("");    
     }
     
+    private Visão<String> getVisãoAlunosCadastrados(String chave) {
+        for (Visão<String> visão : alunos_cadastrados) {
+            if (visão.getChave().equals(chave)) return visão;
+        }
+        return null;
+    }
 }
 
