@@ -64,25 +64,14 @@ public Endereço(String logradouro, String bairro, String CEP, int numero, Strin
     public static Endereço buscarEndereço(String cpf, int id){
         ResultSet resultado = null;
         Endereço endereço = null;
+        String sql = null;
         if (id == 0){
-            String sql = "SELECT logradouro, bairro, numero, cep, cidade FROM enderecoa" + " WHERE CPF = ?";
-            try{
-                PreparedStatement comando = BD.conexão.prepareStatement(sql);
-                comando.setString(1, cpf);
-                resultado = comando.executeQuery();
-                while(resultado.next()){
-                    endereço = new Endereço(resultado.getString("logradouro"), resultado.getString("bairro"), resultado.getString("cep"), resultado.getInt("numero"), resultado.getString("cidade"));
-                }
-                resultado.close();
-
-            }catch (SQLException exceção){
-                exceção.printStackTrace();
-                endereço = null;
-            }
-            return endereço;
+            sql = "SELECT logradouro, bairro, numero, cep, cidade FROM enderecoa" + " WHERE CPF = ?";
         }
+        
         else{
-            String sql = "SELECT logradouro, bairro, numero, cidade FROM enderecoi" + " WHERE cref = ?";
+            sql = "SELECT logradouro, bairro, numero, cidade FROM enderecoi" + " WHERE cref = ?";
+        }
             try{
                 PreparedStatement comando = BD.conexão.prepareStatement(sql);
                 comando.setString(1, cpf);
@@ -97,7 +86,6 @@ public Endereço(String logradouro, String bairro, String CEP, int numero, Strin
                 endereço = null;
             }
             return endereço;
-        }
     }
 
 
