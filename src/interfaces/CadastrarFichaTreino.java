@@ -249,6 +249,7 @@ public class CadastrarFichaTreino extends javax.swing.JFrame {
         getContentPane().add(quartaCRadioButton, gridBagConstraints);
 
         quartaButtonGroup.add(quartaNRadioButton);
+        quartaNRadioButton.setSelected(true);
         quartaNRadioButton.setText("Nenhum");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
@@ -256,6 +257,7 @@ public class CadastrarFichaTreino extends javax.swing.JFrame {
         getContentPane().add(quartaNRadioButton, gridBagConstraints);
 
         segundaButtonGroup.add(segundaNRadioButton);
+        segundaNRadioButton.setSelected(true);
         segundaNRadioButton.setText("Nenhum");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
@@ -263,6 +265,7 @@ public class CadastrarFichaTreino extends javax.swing.JFrame {
         getContentPane().add(segundaNRadioButton, gridBagConstraints);
 
         terçaButtonGroup.add(tercaNRadioButton);
+        tercaNRadioButton.setSelected(true);
         tercaNRadioButton.setText("Nenhum");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
@@ -298,6 +301,7 @@ public class CadastrarFichaTreino extends javax.swing.JFrame {
         getContentPane().add(quintaCRadioButton, gridBagConstraints);
 
         quintaButtonGroup.add(quintaNRadioButton);
+        quintaNRadioButton.setSelected(true);
         quintaNRadioButton.setText("Nenhum");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
@@ -333,6 +337,7 @@ public class CadastrarFichaTreino extends javax.swing.JFrame {
         getContentPane().add(sextaCRadioButton, gridBagConstraints);
 
         sextaButtonGroup.add(sextaNRadioButton);
+        sextaNRadioButton.setSelected(true);
         sextaNRadioButton.setText("Nenhum");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
@@ -368,6 +373,7 @@ public class CadastrarFichaTreino extends javax.swing.JFrame {
         getContentPane().add(sabadoCRadioButton, gridBagConstraints);
 
         sabadoButtonGroup.add(sabadoNRadioButton);
+        sabadoNRadioButton.setSelected(true);
         sabadoNRadioButton.setText("Nenhum");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
@@ -375,6 +381,11 @@ public class CadastrarFichaTreino extends javax.swing.JFrame {
         getContentPane().add(sabadoNRadioButton, gridBagConstraints);
 
         inserirButton.setText("Inserir");
+        inserirButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inserirButtonActionPerformed(evt);
+            }
+        });
 
         alterarButton.setText("Alterar");
 
@@ -510,6 +521,21 @@ public class CadastrarFichaTreino extends javax.swing.JFrame {
             
     }//GEN-LAST:event_consultarButtonActionPerformed
 
+    private void inserirButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirButtonActionPerformed
+            Ficha_Treino ficha = null;
+            String erro = null;
+            ficha = obterFicha();
+            if (ficha != null){
+                erro = ControladorCadastroFichaTreino.inserirFichaTreino(ficha);
+                if (erro == null){
+                   JOptionPane.showMessageDialog(this, "Ficha de treino inserida com sucesso!", "ERRO!", JOptionPane.INFORMATION_MESSAGE);
+                }
+                else
+                    JOptionPane.showMessageDialog(this, erro, "ERRO!", JOptionPane.INFORMATION_MESSAGE);
+            }
+                
+    }//GEN-LAST:event_inserirButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -601,13 +627,87 @@ public class CadastrarFichaTreino extends javax.swing.JFrame {
     public void limparCampos(){
         horárioTextField.setText("");
         id_TextField.setText("");
-        segundaButtonGroup.clearSelection();
-        terçaButtonGroup.clearSelection();
-        quartaButtonGroup.clearSelection();
-        quintaButtonGroup.clearSelection();
-        sextaButtonGroup.clearSelection();
-        sabadoButtonGroup.clearSelection();               
+        segundaButtonGroup.setSelected(segundaNRadioButton.getModel(), true);
+        terçaButtonGroup.setSelected(tercaNRadioButton.getModel(), true);
+        quartaButtonGroup.setSelected(quartaNRadioButton.getModel(), true);
+        quintaButtonGroup.setSelected(quintaNRadioButton.getModel(), true);
+        sextaButtonGroup.setSelected(sextaNRadioButton.getModel(), true);
+        sabadoButtonGroup.setSelected(sabadoNRadioButton.getModel(), true);             
     }
+    
+    public Ficha_Treino obterFicha(){
+        Visão<String> aluno = null, instrutor = null;
+        String horario = null, id = null;
+        TipoTreino segunda = null, terca = null, quarta = null, quinta = null, sexta = null, sabado = null;
+        
+        aluno = (Visão<String>)lista_alunosComboBox.getSelectedItem();   
+        instrutor = (Visão<String>)lista_instrutoresComboBox.getSelectedItem();
+        horario = horárioTextField.getText();
+        id = id_TextField.getText();
+        if (segundaARadioButton.isSelected())
+            segunda = TipoTreino.TreinoA;
+        else if (segundaBRadioButton.isSelected())
+            segunda = TipoTreino.TreinoB;
+        else if (segundaCRadioButton.isSelected())
+            segunda = TipoTreino.TreinoC;
+        else
+            segunda = null;
+        
+        if (terçaARadioButton.isSelected())
+            terca = TipoTreino.TreinoA;
+        else if (terçaBRadioButton.isSelected())
+            terca = TipoTreino.TreinoB;
+        else if (terçaCRadioButton.isSelected())
+            terca = TipoTreino.TreinoC;
+        else
+            terca = null;
+        
+        if (quartaARadioButton.isSelected())
+            quarta = TipoTreino.TreinoA;
+        else if (quartaBRadioButton.isSelected())
+            quarta = TipoTreino.TreinoB;
+        else if (quartaCRadioButton.isSelected())
+            quarta = TipoTreino.TreinoC;
+        else
+            quarta = null;
+        
+        if (quintaARadioButton.isSelected())
+            quinta = TipoTreino.TreinoA;
+        else if (quintaBRadioButton.isSelected())
+            quinta = TipoTreino.TreinoB;
+        else if (quintaCRadioButton.isSelected())
+            quinta = TipoTreino.TreinoC;
+        else
+            quinta = null;
+        
+        if (sextaARadioButton.isSelected())
+            sexta = TipoTreino.TreinoA;
+        else if (sextaBRadioButton.isSelected())
+            sexta = TipoTreino.TreinoB;
+        else if (sextaCRadioButton.isSelected())
+            sexta = TipoTreino.TreinoC;
+        else
+            sexta = null;
+        
+        if (sabadoARadioButton.isSelected())
+            sabado = TipoTreino.TreinoA;
+        else if (sabadoBRadioButton.isSelected())
+            sabado = TipoTreino.TreinoB;
+        else if (sabadoCRadioButton.isSelected())
+            sabado = TipoTreino.TreinoC;
+        else
+            sabado = null;
+        
+        if(aluno != null || instrutor != null || !horario.isEmpty() || segunda != null || terca != null || quarta != null || quinta != null || sexta != null || sabado != null){
+            return new Ficha_Treino(Aluno.buscarAluno(aluno.getChave()), Instrutor.buscarInstrutor(instrutor.getChave()), horario, segunda, terca, quarta, quinta, sexta, sabado);
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Algum campo está em branco!!", "ERRO!", JOptionPane.INFORMATION_MESSAGE);
+            return null;
+        }
+
+        
+}
     
     
 }

@@ -18,7 +18,19 @@ public class Ficha_Treino {
     private TipoTreino segunda, terça, quarta, quinta, sexta, sabado;
     private int id;
 
-    public Ficha_Treino(Aluno aluno, Instrutor instrutor, String horario, TipoTreino segunda, TipoTreino terça, TipoTreino quarta, TipoTreino quinta, TipoTreino sexta, TipoTreino sabado, int id) {
+    public Ficha_Treino(Aluno aluno, Instrutor instrutor, String horario, TipoTreino segunda, TipoTreino terça, TipoTreino quarta, TipoTreino quinta, TipoTreino sexta, TipoTreino sabado) {
+        this.aluno = aluno;
+        this.instrutor = instrutor;
+        this.horario = horario;
+        this.segunda = segunda;
+        this.terça = terça;
+        this.quarta = quarta;
+        this.quinta = quinta;
+        this.sexta = sexta;
+        this.sabado = sabado;
+    }
+    
+     public Ficha_Treino(Aluno aluno, Instrutor instrutor, String horario, TipoTreino segunda, TipoTreino terça, TipoTreino quarta, TipoTreino quinta, TipoTreino sexta, TipoTreino sabado, int id) {
         this.aluno = aluno;
         this.instrutor = instrutor;
         this.horario = horario;
@@ -140,9 +152,38 @@ public class Ficha_Treino {
             return ficha;
     }
     
-    
+       
+    public static String inserirFichaTreino (Ficha_Treino novo){
+        String sql = "INSERT INTO ficha_treino (cpf_aluno, cref_instrutor, horario, segunda, terca, quarta, quinta, sexta, sabado)" + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        
+        try{
+            PreparedStatement comando = BD.conexão.prepareStatement(sql);
+            comando.setString(1, novo.getAluno().getCPF());
+            comando.setString(2, novo.getInstrutor().getCref());
+            comando.setString(3, novo.getHorario());
+            comando.setString(4, treinoToString(novo.getSegunda()));
+            comando.setString(5, treinoToString(novo.getTerça()));
+            comando.setString(6, treinoToString(novo.getQuarta()));
+            comando.setString(7, treinoToString(novo.getQuinta()));
+            comando.setString(8, treinoToString(novo.getSexta()));
+            comando.setString(9, treinoToString(novo.getSabado()));
+            comando.executeUpdate();
+            comando.close();
+            
+            return null;
+        }catch(SQLException exceção_sql){
+            exceção_sql.printStackTrace();
+            return "Erro Na Inserção no Banco de Dados";
+        }
+    }
+        
+        
+        
+        
+        
+        
     public static TipoTreino stringToTipoTreino(String treino){
-        if (!treino.isEmpty()){
+        if (treino != null){
             if (treino.equalsIgnoreCase("treino A"))
                 return TipoTreino.TreinoA;
             else if (treino.equalsIgnoreCase("treino B"))
@@ -153,6 +194,17 @@ public class Ficha_Treino {
         else
             return null;
     }
+           
+   public static String treinoToString(TipoTreino treino){
+       if (treino == TipoTreino.TreinoA)
+           return "treino a";
+       if (treino == TipoTreino.TreinoB)
+           return "treino b";
+       if (treino == TipoTreino.TreinoC)
+           return "treino c";
+       else
+           return null;
+   }
     
     
     
