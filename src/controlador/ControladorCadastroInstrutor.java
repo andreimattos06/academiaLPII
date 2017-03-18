@@ -20,4 +20,15 @@ public class ControladorCadastroInstrutor {
         
     };
     
+    public static String removerInstrutor(String cref){
+        return Instrutor.removerInstrutor(cref);
+    }
+    
+    public static String alterarInstrutor(Instrutor novo){
+        if (Instrutor.buscarInstrutor(novo.getCref()) != null){
+            return Instrutor.alterarInstrutor(novo);
+        }
+        else
+            return "CREF não encontrado.";
+    }
 }

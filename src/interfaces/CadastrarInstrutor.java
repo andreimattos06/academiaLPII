@@ -203,8 +203,18 @@ public class CadastrarInstrutor extends javax.swing.JFrame {
         });
 
         alterar_instrutorButton.setText("Alterar");
+        alterar_instrutorButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                alterar_instrutorButtonActionPerformed(evt);
+            }
+        });
 
         remover_instrutorButton.setText("Remover");
+        remover_instrutorButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                remover_instrutorButtonActionPerformed(evt);
+            }
+        });
 
         consultar_instrutorButton.setText("Consultar");
         consultar_instrutorButton.addActionListener(new java.awt.event.ActionListener() {
@@ -380,6 +390,45 @@ public class CadastrarInstrutor extends javax.swing.JFrame {
 
         
     }//GEN-LAST:event_consultar_instrutorButtonActionPerformed
+
+    private void remover_instrutorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_remover_instrutorButtonActionPerformed
+        String erro = null;
+        Visão<String> visao = (Visão<String>)lista_instrutoresComboBox.getSelectedItem();
+        if (visao != null){
+                    erro = ControladorCadastroInstrutor.removerInstrutor(visao.getChave());
+                    if (erro == null){
+                        JOptionPane.showMessageDialog(this, "Instrutor removido com sucesso!", "SUCESSO!", JOptionPane.INFORMATION_MESSAGE); 
+                        instrutores_cadastrados.remove(visao);
+                        lista_instrutoresComboBox.updateUI();
+                        if (lista_instrutoresComboBox.getItemCount() == 0)
+                            lista_instrutoresComboBox.setSelectedIndex(-1);
+                        else
+                            lista_instrutoresComboBox.setSelectedIndex(0);
+                    }
+        }
+
+    }//GEN-LAST:event_remover_instrutorButtonActionPerformed
+
+    private void alterar_instrutorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alterar_instrutorButtonActionPerformed
+        String erro = null;
+        Instrutor alterar = obterInstrutor();
+        Visão<String> visao = (Visão<String>)lista_instrutoresComboBox.getSelectedItem();
+        if (!visao.getChave().equals(alterar.getCref())){
+            JOptionPane.showMessageDialog(this, "CREF selecionado difere do CREF digitado no campo 'CREF'!", "SUCESSO!", JOptionPane.INFORMATION_MESSAGE); 
+        }
+        else{
+            erro = ControladorCadastroInstrutor.alterarInstrutor(alterar);
+            if (erro == null){
+                JOptionPane.showMessageDialog(this, "Instrutor alterado com sucesso!", "SUCESSO!", JOptionPane.INFORMATION_MESSAGE); 
+                instrutores_cadastrados.remove(visao);
+                instrutores_cadastrados.add(new Visão<String>(alterar.getCref(), alterar.getNome() + " - " + alterar.getCref()));
+                lista_instrutoresComboBox.updateUI();
+                lista_instrutoresComboBox.setSelectedIndex(lista_instrutoresComboBox.getItemCount()-1);
+            }
+        }
+
+        
+    }//GEN-LAST:event_alterar_instrutorButtonActionPerformed
 
     /**
      * @param args the command line arguments

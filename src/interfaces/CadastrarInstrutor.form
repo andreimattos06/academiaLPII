@@ -218,11 +218,17 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Alterar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="alterar_instrutorButtonActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="remover_instrutorButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Remover"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="remover_instrutorButtonActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="consultar_instrutorButton">
           <Properties>

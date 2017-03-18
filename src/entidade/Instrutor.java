@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import entidade.Data;
 import java.util.Vector;
 import persistencia.BD;
+import entidade.Endereço;
 
 
 public class Instrutor {
@@ -145,6 +146,47 @@ public Instrutor(String nome, String sobrenome, String CPF, Data data_nascimento
            
         }
     }
+    
+    public static String removerInstrutor(String cref){
+        String sql = "DELETE FROM Instrutor" + " WHERE CREF = ?";
+        try{
+            Endereço.removerEndereço(cref);
+            PreparedStatement comando = BD.conexão.prepareStatement(sql);
+            comando.setString(1, cref);
+            comando.executeUpdate();
+            comando.close();            
+            return null;
+            
+        }catch(SQLException exceção){
+            exceção.printStackTrace();
+            return "Erro na remoção do banco de dados";
+        }
+    }
+     
+    public static String alterarInstrutor(Instrutor novo){
+        String sql = "UPDATE Instrutor SET Nome = ?, Sobrenome = ?, Cref = ?, Data_Nascimento = ?, CPF = ?" + " WHERE CREF = ?";
+        try{
+            PreparedStatement comando = BD.conexão.prepareStatement(sql);
+            comando.setString(1, novo.getNome());
+            comando.setString(2, novo.getSobrenome());
+            comando.setString(3, novo.getCref());
+            comando.setString(4, novo.getData_nascimento().toString());
+            comando.setString(5, novo.getCPF());
+            comando.setString(6, novo.getCref());
+            comando.executeUpdate();
+            comando.close();
+            
+            Endereço.alterarEndereço(novo);
+            
+            return null;
+            
+            }catch(SQLException exceção){
+            exceção.printStackTrace();
+            return "Erro na remoção do banco de dados";
+            }    
+        
+    }
+}
 
     
-}
+

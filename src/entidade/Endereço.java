@@ -109,6 +109,44 @@ public Endereço(String logradouro, String bairro, String CEP, int numero, Strin
             return "Erro Na Inserção no Banco de Dados";
         }
  }
+   
+    public static String removerEndereço(String cref){
+        String sql = "DELETE FROM enderecoi" + " WHERE CREF = ?";
+        try{
+            PreparedStatement comando = BD.conexão.prepareStatement(sql);
+            comando.setString(1, cref);
+            comando.executeUpdate();
+            comando.close();
+            
+            return null;
+            
+        }catch(SQLException exceção){
+            exceção.printStackTrace();
+            return "Erro na remoção do banco de dados";
+        }
+    }
+    
+    public static String alterarEndereço(Instrutor novo){
+        String sql = "UPDATE Enderecoi SET Cref = ?, Logradouro = ?, Bairro = ?, Numero = ?, Cidade = ?, Cep = ?" + " WHERE CREF = ?";
+        try{
+            PreparedStatement comando = BD.conexão.prepareStatement(sql);
+            comando.setString(1, novo.getCref());
+            comando.setString(2, novo.getEndereço().getLogradouro());
+            comando.setString(3, novo.getEndereço().getBairro());
+            comando.setInt(4, novo.getEndereço().getNumero());
+            comando.setString(5, novo.getEndereço().getCidade());
+            comando.setString(6, novo.getEndereço().getCEP());
+            comando.setString(7, novo.getCref());
+            comando.executeUpdate();
+            comando.close();
+            
+            return null;
+            
+            }catch(SQLException exceção){
+            exceção.printStackTrace();
+            return "Erro na remoção do banco de dados";
+            } 
     
     
+}
 }
