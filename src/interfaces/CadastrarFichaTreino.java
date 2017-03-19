@@ -522,8 +522,10 @@ public class CadastrarFichaTreino extends javax.swing.JFrame {
                     else
                         sabadoNRadioButton.setSelected(true);
                }
-                else
-                     JOptionPane.showMessageDialog(this, "Ficha de treino não encontrada!", "ERRO!", JOptionPane.INFORMATION_MESSAGE);
+                else{
+                    JOptionPane.showMessageDialog(this, "Ficha de treino não encontrada!", "ERRO!", JOptionPane.INFORMATION_MESSAGE);
+                    limparCampos();
+                }
  
             }
             else 
