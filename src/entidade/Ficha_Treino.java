@@ -176,6 +176,47 @@ public class Ficha_Treino {
             return "Erro Na Inserção no Banco de Dados";
         }
     }
+    
+    public static String alterarFicha(Ficha_Treino ficha){
+       String sql = "UPDATE Ficha_Treino SET Cpf_Aluno = ?, Cref_Instrutor = ?, Horario = ?, Segunda = ?, Terca = ?, Quarta = ?, Quinta = ?, Sexta = ?, Sabado = ?" + " WHERE ID = ?";
+       
+       try{
+            PreparedStatement comando = BD.conexão.prepareStatement(sql);
+            comando.setString(1, ficha.getAluno().getCPF());
+            comando.setString(2, ficha.getInstrutor().getCref());
+            comando.setString(3, ficha.getHorario());
+            comando.setString(4, treinoToString(ficha.getSegunda()));
+            comando.setString(5, treinoToString(ficha.getTerça()));
+            comando.setString(6, treinoToString(ficha.getQuarta()));
+            comando.setString(7, treinoToString(ficha.getQuinta()));
+            comando.setString(8, treinoToString(ficha.getSexta()));
+            comando.setString(9, treinoToString(ficha.getSabado()));
+            comando.setInt(10, ficha.getId());
+            comando.executeUpdate();
+            comando.close();
+            
+            return null;
+        }catch(SQLException exceção_sql){
+            exceção_sql.printStackTrace();
+            return "Erro na Alteração no Banco de Dados";
+        }
+    }
+    
+    public static String removerTreino(int id){
+        String sql = "DELETE FROM Ficha_Treino" + " WHERE ID = ?";
+        
+        try{
+            PreparedStatement comando = BD.conexão.prepareStatement(sql);
+            comando.setInt(1, id);
+            comando.executeUpdate();
+            comando.close();
+            
+            return null;
+        }catch(SQLException exceção_sql){
+            exceção_sql.printStackTrace();
+            return "Erro na Alteração no Banco de Dados";
+        }
+    }
         
         
         

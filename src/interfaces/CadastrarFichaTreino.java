@@ -388,8 +388,18 @@ public class CadastrarFichaTreino extends javax.swing.JFrame {
         });
 
         alterarButton.setText("Alterar");
+        alterarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                alterarButtonActionPerformed(evt);
+            }
+        });
 
         removerButton.setText("Remover");
+        removerButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removerButtonActionPerformed(evt);
+            }
+        });
 
         consultarButton.setText("Consultar");
         consultarButton.addActionListener(new java.awt.event.ActionListener() {
@@ -528,13 +538,48 @@ public class CadastrarFichaTreino extends javax.swing.JFrame {
             if (ficha != null){
                 erro = ControladorCadastroFichaTreino.inserirFichaTreino(ficha);
                 if (erro == null){
-                   JOptionPane.showMessageDialog(this, "Ficha de treino inserida com sucesso!", "ERRO!", JOptionPane.INFORMATION_MESSAGE);
+                   JOptionPane.showMessageDialog(this, "Ficha de treino inserida com sucesso!", "Informação!", JOptionPane.INFORMATION_MESSAGE);
                 }
                 else
                     JOptionPane.showMessageDialog(this, erro, "ERRO!", JOptionPane.INFORMATION_MESSAGE);
             }
                 
     }//GEN-LAST:event_inserirButtonActionPerformed
+
+    private void alterarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alterarButtonActionPerformed
+        String erro = null;
+        Ficha_Treino ficha = null;
+        ficha = obterFicha();
+        ficha.setId(Integer.parseInt(id_TextField.getText()));
+        if (ficha != null){
+            erro = Ficha_Treino.alterarFicha(ficha);
+            if (erro == null){
+                JOptionPane.showMessageDialog(this, "Ficha de treino alterada com sucesso!", "Informação!", JOptionPane.INFORMATION_MESSAGE);
+            }
+            else
+                JOptionPane.showMessageDialog(this, erro, "ERRO!", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_alterarButtonActionPerformed
+
+    private void removerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerButtonActionPerformed
+        String erro = null;
+        int id;
+        String idtext = id_TextField.getText();
+        if (!idtext.isEmpty())
+        {
+                    id = Integer.parseInt(id_TextField.getText());
+                    erro = Ficha_Treino.removerTreino(id);
+                    if (erro == null){
+                        JOptionPane.showMessageDialog(this, "Ficha de treino removida com sucesso!", "Informação!", JOptionPane.INFORMATION_MESSAGE);
+                        limparCampos();
+                    }
+                    else
+                        JOptionPane.showMessageDialog(this, erro, "ERRO!", JOptionPane.INFORMATION_MESSAGE);
+        }
+        else
+            JOptionPane.showMessageDialog(this, "O Campo 'ID' está vazio!", "ERRO!", JOptionPane.INFORMATION_MESSAGE);
+
+    }//GEN-LAST:event_removerButtonActionPerformed
 
     /**
      * @param args the command line arguments

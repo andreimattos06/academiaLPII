@@ -397,7 +397,7 @@ public class CadastrarInstrutor extends javax.swing.JFrame {
         if (visao != null){
                     erro = ControladorCadastroInstrutor.removerInstrutor(visao.getChave());
                     if (erro == null){
-                        JOptionPane.showMessageDialog(this, "Instrutor removido com sucesso!", "SUCESSO!", JOptionPane.INFORMATION_MESSAGE); 
+                        JOptionPane.showMessageDialog(this, "Instrutor removido com sucesso!", "Informação!", JOptionPane.INFORMATION_MESSAGE); 
                         instrutores_cadastrados.remove(visao);
                         lista_instrutoresComboBox.updateUI();
                         if (lista_instrutoresComboBox.getItemCount() == 0)
@@ -414,12 +414,12 @@ public class CadastrarInstrutor extends javax.swing.JFrame {
         Instrutor alterar = obterInstrutor();
         Visão<String> visao = (Visão<String>)lista_instrutoresComboBox.getSelectedItem();
         if (!visao.getChave().equals(alterar.getCref())){
-            JOptionPane.showMessageDialog(this, "CREF selecionado difere do CREF digitado no campo 'CREF'!", "SUCESSO!", JOptionPane.INFORMATION_MESSAGE); 
+            JOptionPane.showMessageDialog(this, "CREF selecionado difere do CREF digitado no campo 'CREF'!", "ERRO!", JOptionPane.INFORMATION_MESSAGE); 
         }
         else{
             erro = ControladorCadastroInstrutor.alterarInstrutor(alterar);
             if (erro == null){
-                JOptionPane.showMessageDialog(this, "Instrutor alterado com sucesso!", "SUCESSO!", JOptionPane.INFORMATION_MESSAGE); 
+                JOptionPane.showMessageDialog(this, "Instrutor alterado com sucesso!", "Informação!", JOptionPane.INFORMATION_MESSAGE); 
                 instrutores_cadastrados.remove(visao);
                 instrutores_cadastrados.add(new Visão<String>(alterar.getCref(), alterar.getNome() + " - " + alterar.getCref()));
                 lista_instrutoresComboBox.updateUI();
