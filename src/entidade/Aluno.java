@@ -1,7 +1,7 @@
 
 package entidade;
 
-import java.sql.Date;
+import entidade.Data;
 import persistencia.BD;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,7 +15,7 @@ public class Aluno {
     private String nome, sobrenome, CPF;
     private float peso, altura;
     private Endereço endereço;
-    private Date data_nascimento;
+    private Data data_nascimento;
 
     public static String inserirAluno (Aluno aluno) {
         String sql = "INSERT INTO aluno (nome, sobrenome, CPF, data_nascimento, peso, altura)"
@@ -26,7 +26,7 @@ public class Aluno {
             comando.setString(1, aluno.getNome());
             comando.setString(2, aluno.getSobrenome());
             comando.setString(3, aluno.getCPF());
-            comando.setDate  (4, aluno.getData_nascimento());
+            comando.setString  (4, aluno.getData_nascimento().toString());
             comando.setFloat (5, aluno.getPeso());
             comando.setFloat (6, aluno.getAltura());
 
@@ -54,7 +54,7 @@ public class Aluno {
                         resultado.getString("nome"),
                         resultado.getString("sobrenome"),
                         cpf,
-                        resultado.getDate("data_nascimento"),
+                        Data.toDate(resultado.getString("data_nascimento")),
                         resultado.getFloat("peso"),
                         resultado.getFloat("altura"),
                         Endereço.buscarEndereço(cpf, 0) );
@@ -78,7 +78,7 @@ public class Aluno {
             comando.setString(2, aluno.getSobrenome());
             comando.setFloat (3, aluno.getPeso());
             comando.setFloat (4, aluno.getAltura());
-            comando.setDate (5, aluno.getData_nascimento());
+            comando.setString (5, aluno.getData_nascimento().toString());
             
             comando.setString(6, aluno.getCPF());
             comando.executeUpdate(); 
@@ -134,7 +134,7 @@ public class Aluno {
     return visões;
 }
 
-    public Aluno(String nome, String sobrenome, String CPF, Date data_nascimento, float peso, float altura, Endereço endereço) {
+    public Aluno(String nome, String sobrenome, String CPF, Data data_nascimento, float peso, float altura, Endereço endereço) {
     this.nome = nome;
     this.sobrenome = sobrenome;
     this.CPF = CPF;
@@ -169,11 +169,11 @@ public class Aluno {
         this.CPF = CPF;
     }
 
-    public Date getData_nascimento() {
+    public Data getData_nascimento() {
         return data_nascimento;
     }
 
-    public void setData_nascimento(Date data_nascimento) {
+    public void setData_nascimento(Data data_nascimento) {
         this.data_nascimento = data_nascimento;
     }
 

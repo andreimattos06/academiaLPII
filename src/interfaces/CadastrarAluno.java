@@ -14,6 +14,7 @@ import entidade.Endereço;
 import controlador.ControladorCadastroAluno;
 import entidade.Visão;
 import javax.swing.DefaultComboBoxModel;
+import entidade.Data;
 
 /**
  *
@@ -286,6 +287,7 @@ public class CadastrarAluno extends javax.swing.JFrame {
 
         data_nascimento_TextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
         data_nascimento_TextField.setText("(dd/mm/aaaa)");
+        data_nascimento_TextField.setMinimumSize(new java.awt.Dimension(74, 25));
         data_nascimento_TextField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 data_nascimento_TextFieldFocusGained(evt);
@@ -365,23 +367,25 @@ public class CadastrarAluno extends javax.swing.JFrame {
     }//GEN-LAST:event_limparButtonActionPerformed
 
     private void consultar_alunoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultar_alunoButtonActionPerformed
-        Aluno aluno;
+        Aluno aluno = null;
         Visão<String> visão = (Visão<String>)
-                lista_alunosComboBox.getSelectedItem();
+        lista_alunosComboBox.getSelectedItem();
         
-        if(cpf_TextField.getText().isEmpty()) {
+        if(lista_alunosComboBox.getSelectedIndex() != -1) {
             aluno = Aluno.buscarAluno(visão.getChave());
         }
         else {
-            aluno = Aluno.buscarAluno(cpf_TextField.getText());
+            if(cpf_TextField.getText().isEmpty())
+                aluno = Aluno.buscarAluno(cpf_TextField.getText());
+            else
+                JOptionPane.showMessageDialog(this, "Campo CPF vazio, ou aluno não selecionado", "SUCESSO!", JOptionPane.INFORMATION_MESSAGE); 
         }
         
         if (aluno != null){
-            
             nome_TextField.setText(aluno.getNome());
             sobrenome_TextField.setText(aluno.getSobrenome());
             cpf_TextField.setText(aluno.getCPF());
-            data_nascimento_TextField.setText(aluno.getData_nascimento().toLocaleString().substring(0, 10));
+            data_nascimento_TextField.setText(aluno.getData_nascimento().toString());
             logradouro_TextField.setText(aluno.getEndereço().getLogradouro());
             bairro_TextField.setText(aluno.getEndereço().getBairro());
             cidade_TextField.setText(aluno.getEndereço().getCidade());
@@ -406,29 +410,25 @@ public class CadastrarAluno extends javax.swing.JFrame {
 
     private void alterar_alunoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alterar_alunoButtonActionPerformed
         String erro = null;
-        Aluno alterar = null;
+        Aluno alterar = obterAluno();
         Visão<String> visao = (Visão<String>)lista_alunosComboBox.getSelectedItem();
-        
-        if(cpf_TextField.getText().isEmpty()) {
-            alterar = Aluno.buscarAluno(visao.getChave());
-        }
-        else {
-            alterar = Aluno.buscarAluno(cpf_TextField.getText());
-        
+
             if (!visao.getChave().equals(alterar.getCPF())){
                 JOptionPane.showMessageDialog(this, "CPF selecionado difere do CPF digitado no campo 'CPF'!", "ERRO!", JOptionPane.INFORMATION_MESSAGE); 
             }
             else{
-                erro = controlador.alterarAluno(alterar);
+                 erro = controlador.alterarAluno(alterar);
                 if (erro == null){
-                    JOptionPane.showMessageDialog(this, "Instrutor alterado com sucesso!", "Informação!", JOptionPane.INFORMATION_MESSAGE); 
+                    JOptionPane.showMessageDialog(this, "Aluno alterado com sucesso!", "Informação!", JOptionPane.INFORMATION_MESSAGE); 
                     alunos_cadastrados.remove(visao);
                     alunos_cadastrados.add(new Visão<String>(alterar.getCPF(), alterar.getNome() + " - " + alterar.getCPF()));
                     lista_alunosComboBox.updateUI();
                     lista_alunosComboBox.setSelectedIndex(lista_alunosComboBox.getItemCount()-1);
                 }
+                else
+                    JOptionPane.showMessageDialog(this, erro, "Erro!", JOptionPane.INFORMATION_MESSAGE);
            }
-        }
+        
     }//GEN-LAST:event_alterar_alunoButtonActionPerformed
 
     private void remover_alunoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_remover_alunoButtonActionPerformed
@@ -541,10 +541,10 @@ public class CadastrarAluno extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Algum campo está em branco.", "ERRO!", JOptionPane.INFORMATION_MESSAGE);
             return null;
         }
-      dia = Integer.parseInt(Character.toString(data_nascimento.charAt(0)) + Character.toString(data_nascimento.charAt(1)));
-      mes = Integer.parseInt(Character.toString(data_nascimento.charAt(3)) + Character.toString(data_nascimento.charAt(4)));
-      ano = Integer.parseInt(Character.toString(data_nascimento.charAt(6)) + Character.toString(data_nascimento.charAt(7)) + Character.toString(data_nascimento.charAt(8))+ Character.toString(data_nascimento.charAt(9)));
-        return new Aluno (nome, sobrenome, cpf, new Date(ano, mes, dia), Float.parseFloat(peso.replace(',', '.')), Float.parseFloat(altura.replace(',', '.')), new Endereço(logradouro, bairro, cep, Integer.parseInt(num), cidade));
+      
+      Data data = Data.toDate(data_nascimento);
+      
+        return new Aluno (nome, sobrenome, cpf, data, Float.parseFloat(peso.replace(',', '.')), Float.parseFloat(altura.replace(',', '.')), new Endereço(logradouro, bairro, cep, Integer.parseInt(num), cidade));
     }
     
     private void limparCampos(){

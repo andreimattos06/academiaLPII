@@ -283,6 +283,9 @@
           <Format subtype="0" type="1"/>
         </Property>
         <Property name="text" type="java.lang.String" value="(dd/mm/aaaa)"/>
+        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[74, 25]"/>
+        </Property>
       </Properties>
       <Events>
         <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="data_nascimento_TextFieldFocusGained"/>
