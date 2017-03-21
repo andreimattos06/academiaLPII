@@ -502,14 +502,14 @@ public class CadastrarFichaTreino extends javax.swing.JFrame {
                     else if (ficha.getQuinta() == TipoTreino.TreinoC)
                         quintaCRadioButton.setSelected(true);
                     else
-                        tercaNRadioButton.setSelected(true);
+                        quintaNRadioButton.setSelected(true);
 
                     if (ficha.getSexta()== TipoTreino.TreinoA)
                        sextaARadioButton.setSelected(true);
                     else if (ficha.getSexta() == TipoTreino.TreinoB)
                         sextaBRadioButton.setSelected(true);
                     else if (ficha.getSexta() == TipoTreino.TreinoC)
-                            sextaCRadioButton.setSelected(true);
+                        sextaCRadioButton.setSelected(true);
                     else
                         sextaNRadioButton.setSelected(true);
 
@@ -518,7 +518,7 @@ public class CadastrarFichaTreino extends javax.swing.JFrame {
                     else if (ficha.getSabado() == TipoTreino.TreinoB)
                         sabadoBRadioButton.setSelected(true);
                     else if (ficha.getSabado() == TipoTreino.TreinoC)
-                            sabadoCRadioButton.setSelected(true);
+                         sabadoCRadioButton.setSelected(true);
                     else
                         sabadoNRadioButton.setSelected(true);
                }
