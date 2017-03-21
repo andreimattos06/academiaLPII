@@ -87,6 +87,7 @@ public class CadastrarFichaTreino extends javax.swing.JFrame {
         limparButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Gerência de Fichas de Treino");
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         lista_alunosLabel.setText("Lista de Alunos:");
@@ -502,14 +503,14 @@ public class CadastrarFichaTreino extends javax.swing.JFrame {
                     else if (ficha.getQuinta() == TipoTreino.TreinoC)
                         quintaCRadioButton.setSelected(true);
                     else
-                        quintaNRadioButton.setSelected(true);
+                        tercaNRadioButton.setSelected(true);
 
                     if (ficha.getSexta()== TipoTreino.TreinoA)
                        sextaARadioButton.setSelected(true);
                     else if (ficha.getSexta() == TipoTreino.TreinoB)
                         sextaBRadioButton.setSelected(true);
                     else if (ficha.getSexta() == TipoTreino.TreinoC)
-                        sextaCRadioButton.setSelected(true);
+                            sextaCRadioButton.setSelected(true);
                     else
                         sextaNRadioButton.setSelected(true);
 
@@ -518,7 +519,7 @@ public class CadastrarFichaTreino extends javax.swing.JFrame {
                     else if (ficha.getSabado() == TipoTreino.TreinoB)
                         sabadoBRadioButton.setSelected(true);
                     else if (ficha.getSabado() == TipoTreino.TreinoC)
-                         sabadoCRadioButton.setSelected(true);
+                            sabadoCRadioButton.setSelected(true);
                     else
                         sabadoNRadioButton.setSelected(true);
                }

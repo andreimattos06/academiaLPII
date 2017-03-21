@@ -7,7 +7,6 @@
 package interfaces;
 
 import javax.swing.JOptionPane;
-import java.sql.Date;
 import java.util.Vector;
 import entidade.Aluno;
 import entidade.Endereço;
@@ -73,6 +72,7 @@ public class CadastrarAluno extends javax.swing.JFrame {
         cidade_TextField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Gerencia de Alunos");
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         nome_alunoLabel.setText("Nome:");

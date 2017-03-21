@@ -210,5 +210,10 @@ public Endereço(String logradouro, String bairro, String CEP, int numero, Strin
             } 
     
     
-}
+    }
+    @Override
+    public String toString() {
+        return String.format("Endereço: %s", getLogradouro()+", "+getBairro()+", "+
+                getNumero()+", "+getCidade()+", "+getCEP());
+    }
 }
