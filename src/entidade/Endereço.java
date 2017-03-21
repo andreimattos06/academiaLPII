@@ -127,16 +127,78 @@ public Endereço(String logradouro, String bairro, String CEP, int numero, Strin
     }
     
     public static String alterarEndereço(Instrutor novo){
-        String sql = "UPDATE Enderecoi SET Cref = ?, Logradouro = ?, Bairro = ?, Numero = ?, Cidade = ?, Cep = ?" + " WHERE CREF = ?";
+        String sql = "UPDATE enderecoi SET Cref = ?, Logradouro = ?, Bairro = ?, Numero = ?, Cidade = ?, Cep = ?" + " WHERE CREF = ?";
         try{
             PreparedStatement comando = BD.conexão.prepareStatement(sql);
             comando.setString(1, novo.getCref());
             comando.setString(2, novo.getEndereço().getLogradouro());
             comando.setString(3, novo.getEndereço().getBairro());
-            comando.setInt(4, novo.getEndereço().getNumero());
+            comando.setInt   (4, novo.getEndereço().getNumero());
             comando.setString(5, novo.getEndereço().getCidade());
             comando.setString(6, novo.getEndereço().getCEP());
             comando.setString(7, novo.getCref());
+            comando.executeUpdate();
+            comando.close();
+            
+            return null;
+        }
+            catch(SQLException exceção){
+            exceção.printStackTrace();
+            return "Erro na remoção do banco de dados";
+            } 
+    }
+    
+   /*
+    * Métodos p/ aluno
+    */
+    public static String inserirEndereço (Aluno novo){
+        String sql = "INSERT INTO enderecoa (cpf, logradouro, bairro, numero, cidade, cep)" + "VALUES(?, ?, ?, ?, ?, ?)";
+        
+        try{
+            PreparedStatement comando = BD.conexão.prepareStatement(sql);
+            comando.setString(1, novo.getCPF());
+            comando.setString(2, novo.getEndereço().getLogradouro());
+            comando.setString(3, novo.getEndereço().getBairro());
+            comando.setInt   (4, novo.getEndereço().getNumero());
+            comando.setString(5, novo.getEndereço().getCidade());
+            comando.setString(6, novo.getEndereço().getCEP());
+            comando.executeUpdate();
+            comando.close();
+            
+            return null;
+        }catch(SQLException exceção_sql){
+            exceção_sql.printStackTrace();
+            return "Erro Na Inserção no Banco de Dados";
+        }
+    }
+   
+    public static String removerEndereço(Aluno aluno){
+        String sql = "DELETE FROM enderecoa" + " WHERE cpf = ?";
+        try{
+            PreparedStatement comando = BD.conexão.prepareStatement(sql);
+            comando.setString(1, aluno.getCPF());
+            comando.executeUpdate();
+            comando.close();
+            
+            return null;
+            
+        }catch(SQLException exceção){
+            exceção.printStackTrace();
+            return "Erro na remoção do banco de dados";
+        }
+    }
+    
+    public static String alterarEndereço(Aluno novo){
+        String sql = "UPDATE enderecoa SET cpf = ?, Logradouro = ?, Bairro = ?, Numero = ?, Cidade = ?, Cep = ?" + " WHERE cpf = ?";
+        try{
+            PreparedStatement comando = BD.conexão.prepareStatement(sql);
+            comando.setString(1, novo.getCPF());
+            comando.setString(2, novo.getEndereço().getLogradouro());
+            comando.setString(3, novo.getEndereço().getBairro());
+            comando.setInt(4, novo.getEndereço().getNumero());
+            comando.setString(5, novo.getEndereço().getCidade());
+            comando.setString(6, novo.getEndereço().getCEP());
+            comando.setString(7, novo.getCPF());
             comando.executeUpdate();
             comando.close();
             

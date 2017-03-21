@@ -406,7 +406,6 @@ public class CadastrarInstrutor extends javax.swing.JFrame {
                             lista_instrutoresComboBox.setSelectedIndex(0);
                     }
         }
-
     }//GEN-LAST:event_remover_instrutorButtonActionPerformed
 
     private void alterar_instrutorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alterar_instrutorButtonActionPerformed

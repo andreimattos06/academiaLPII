@@ -75,7 +75,7 @@ public Instrutor(String nome, String sobrenome, String CPF, Data data_nascimento
       
     
     public static Vector<Visão<String>> getVisões() {
-    String sql = "SELECT nome, cref From Instrutor";
+    String sql = "SELECT nome, cref From instrutor";
     ResultSet lista_resultados = null;
     Vector<Visão<String>> visões = new Vector<Visão<String>>();
     String cref = null;
@@ -99,7 +99,7 @@ public Instrutor(String nome, String sobrenome, String CPF, Data data_nascimento
 
     
     public static Instrutor buscarInstrutor(String cref){
-        String sql = "SELECT nome, sobrenome, cpf,  data_nascimento FROM Instrutor" + " WHERE CREF = ?";
+        String sql = "SELECT nome, sobrenome, cpf,  data_nascimento FROM instrutor" + " WHERE CREF = ?";
         ResultSet resultado = null;
         Instrutor instrutor = null;
        
@@ -125,7 +125,7 @@ public Instrutor(String nome, String sobrenome, String CPF, Data data_nascimento
     }
     
     public static String inserirInstrutor (Instrutor novo){
-        String sql = "INSERT INTO Instrutor (Nome, Sobrenome, Cref, Data_Nascimento, CPF)" + "VALUES(?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO instrutor (Nome, Sobrenome, Cref, Data_Nascimento, CPF)" + "VALUES(?, ?, ?, ?, ?)";
         
         try{
             PreparedStatement comando = BD.conexão.prepareStatement(sql);
@@ -148,7 +148,7 @@ public Instrutor(String nome, String sobrenome, String CPF, Data data_nascimento
     }
     
     public static String removerInstrutor(String cref){
-        String sql = "DELETE FROM Instrutor" + " WHERE CREF = ?";
+        String sql = "DELETE FROM instrutor" + " WHERE CREF = ?";
         try{
             Endereço.removerEndereço(cref);
             PreparedStatement comando = BD.conexão.prepareStatement(sql);
@@ -164,7 +164,7 @@ public Instrutor(String nome, String sobrenome, String CPF, Data data_nascimento
     }
      
     public static String alterarInstrutor(Instrutor novo){
-        String sql = "UPDATE Instrutor SET Nome = ?, Sobrenome = ?, Cref = ?, Data_Nascimento = ?, CPF = ?" + " WHERE CREF = ?";
+        String sql = "UPDATE instrutor SET Nome = ?, Sobrenome = ?, Cref = ?, Data_Nascimento = ?, CPF = ?" + " WHERE CREF = ?";
         try{
             PreparedStatement comando = BD.conexão.prepareStatement(sql);
             comando.setString(1, novo.getNome());
@@ -182,7 +182,7 @@ public Instrutor(String nome, String sobrenome, String CPF, Data data_nascimento
             
             }catch(SQLException exceção){
             exceção.printStackTrace();
-            return "Erro na remoção do banco de dados";
+            return "Erro na alteracao do banco de dados";
             }    
         
     }

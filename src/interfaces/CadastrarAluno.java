@@ -7,7 +7,7 @@
 package interfaces;
 
 import javax.swing.JOptionPane;
-import java.util.Date;
+import java.sql.Date;
 import java.util.Vector;
 import entidade.Aluno;
 import entidade.Endereço;
@@ -81,12 +81,6 @@ public class CadastrarAluno extends javax.swing.JFrame {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
         gridBagConstraints.insets = new java.awt.Insets(14, 0, 0, 0);
         getContentPane().add(nome_alunoLabel, gridBagConstraints);
-
-        nome_TextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nome_TextFieldActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 1;
@@ -169,12 +163,6 @@ public class CadastrarAluno extends javax.swing.JFrame {
         gridBagConstraints.gridy = 6;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
         getContentPane().add(bairro_Label, gridBagConstraints);
-
-        bairro_TextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bairro_TextFieldActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 6;
@@ -196,12 +184,6 @@ public class CadastrarAluno extends javax.swing.JFrame {
         gridBagConstraints.gridy = 7;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
         getContentPane().add(cep_Label, gridBagConstraints);
-
-        cep_TextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cep_TextFieldActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 7;
@@ -218,8 +200,18 @@ public class CadastrarAluno extends javax.swing.JFrame {
         });
 
         alterar_alunoButton.setText("Alterar");
+        alterar_alunoButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                alterar_alunoButtonActionPerformed(evt);
+            }
+        });
 
         remover_alunoButton.setText("Remover");
+        remover_alunoButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                remover_alunoButtonActionPerformed(evt);
+            }
+        });
 
         consultar_alunoButton.setText("Consultar");
         consultar_alunoButton.addActionListener(new java.awt.event.ActionListener() {
@@ -294,6 +286,11 @@ public class CadastrarAluno extends javax.swing.JFrame {
 
         data_nascimento_TextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
         data_nascimento_TextField.setText("(dd/mm/aaaa)");
+        data_nascimento_TextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                data_nascimento_TextFieldFocusGained(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 3;
@@ -344,25 +341,22 @@ public class CadastrarAluno extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void nome_TextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nome_TextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nome_TextFieldActionPerformed
-
-    private void bairro_TextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bairro_TextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_bairro_TextFieldActionPerformed
-
-    private void cep_TextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cep_TextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cep_TextFieldActionPerformed
-
     private void cadastrar_alunoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrar_alunoButtonActionPerformed
         Aluno aluno = obterAluno();
-        String erro = null;
-       
+        String erro = null; 
+        
         if (aluno != null){
-            
-           
+            erro = controlador.inserirAluno(aluno);
+            if (erro != null ) {
+                JOptionPane.showMessageDialog(this, erro, "ERRO", JOptionPane.ERROR_MESSAGE);
+            }
+            else {
+                JOptionPane.showMessageDialog(this, "Aluno inserido com sucesso!", "SUCESSO!", JOptionPane.INFORMATION_MESSAGE); 
+                Visão<String> novavisao = new Visão<String>(aluno.getCPF(), aluno.getNome() + " - " + aluno.getCPF());
+                alunos_cadastrados.add(novavisao);
+                lista_alunosComboBox.updateUI();
+                lista_alunosComboBox.setSelectedItem(novavisao);
+            } 
         }
     }//GEN-LAST:event_cadastrar_alunoButtonActionPerformed
 
@@ -372,37 +366,93 @@ public class CadastrarAluno extends javax.swing.JFrame {
 
     private void consultar_alunoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultar_alunoButtonActionPerformed
         Aluno aluno;
+        Visão<String> visão = (Visão<String>)
+                lista_alunosComboBox.getSelectedItem();
         
-        aluno = Aluno.buscarAluno(cpf_TextField.getText());
+        if(cpf_TextField.getText().isEmpty()) {
+            aluno = Aluno.buscarAluno(visão.getChave());
+        }
+        else {
+            aluno = Aluno.buscarAluno(cpf_TextField.getText());
+        }
         
         if (aluno != null){
-         Visão<String> visão = getVisãoAlunosCadastrados(aluno.getCPF());
-         lista_alunosComboBox.setSelectedItem(visão.toString());
-         lista_alunosComboBox.updateUI();
-         nome_TextField.setText(aluno.getNome());
-         sobrenome_TextField.setText(aluno.getSobrenome());
-         cpf_TextField.setText(aluno.getCPF());
-         data_nascimento_TextField.setText(aluno.getData_nascimento().toLocaleString().substring(0, 10));
-         logradouro_TextField.setText(aluno.getEndereço().getLogradouro());
-         bairro_TextField.setText(aluno.getEndereço().getBairro());
-         cidade_TextField.setText(aluno.getEndereço().getCidade());
-         cep_TextField.setText(aluno.getEndereço().getCEP());
-         peso_TextField.setText(Float.toString(aluno.getPeso()));
-         altura_TextField.setText(Float.toString(aluno.getAltura()));
-         numero_TextField.setText(Integer.toString(aluno.getEndereço().getNumero()));
-        }
-        else{
-            JOptionPane.showMessageDialog(this, "O CPF não foi encontrado!", "ERRO!", JOptionPane.INFORMATION_MESSAGE);
             
+            nome_TextField.setText(aluno.getNome());
+            sobrenome_TextField.setText(aluno.getSobrenome());
+            cpf_TextField.setText(aluno.getCPF());
+            data_nascimento_TextField.setText(aluno.getData_nascimento().toLocaleString().substring(0, 10));
+            logradouro_TextField.setText(aluno.getEndereço().getLogradouro());
+            bairro_TextField.setText(aluno.getEndereço().getBairro());
+            cidade_TextField.setText(aluno.getEndereço().getCidade());
+            cep_TextField.setText(aluno.getEndereço().getCEP());
+            peso_TextField.setText(Float.toString(aluno.getPeso()));
+            altura_TextField.setText(Float.toString(aluno.getAltura()));
+            numero_TextField.setText(Integer.toString(aluno.getEndereço().getNumero()));
+        } 
+        else{
+            JOptionPane.showMessageDialog(this, "O CPF não foi encontrado!", "ERRO!", JOptionPane.INFORMATION_MESSAGE); 
         }
          
     }//GEN-LAST:event_consultar_alunoButtonActionPerformed
 
     private void lista_alunosComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lista_alunosComboBoxActionPerformed
-        for (Visão<String> visão : alunos_cadastrados) {
-            lista_alunosComboBox.addItem(visão.toString());
-        }
+
     }//GEN-LAST:event_lista_alunosComboBoxActionPerformed
+
+    private void data_nascimento_TextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_data_nascimento_TextFieldFocusGained
+        data_nascimento_TextField.setText("");
+    }//GEN-LAST:event_data_nascimento_TextFieldFocusGained
+
+    private void alterar_alunoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alterar_alunoButtonActionPerformed
+        String erro = null;
+        Aluno alterar = null;
+        Visão<String> visao = (Visão<String>)lista_alunosComboBox.getSelectedItem();
+        
+        if(cpf_TextField.getText().isEmpty()) {
+            alterar = Aluno.buscarAluno(visao.getChave());
+        }
+        else {
+            alterar = Aluno.buscarAluno(cpf_TextField.getText());
+        
+            if (!visao.getChave().equals(alterar.getCPF())){
+                JOptionPane.showMessageDialog(this, "CPF selecionado difere do CPF digitado no campo 'CPF'!", "ERRO!", JOptionPane.INFORMATION_MESSAGE); 
+            }
+            else{
+                erro = controlador.alterarAluno(alterar);
+                if (erro == null){
+                    JOptionPane.showMessageDialog(this, "Instrutor alterado com sucesso!", "Informação!", JOptionPane.INFORMATION_MESSAGE); 
+                    alunos_cadastrados.remove(visao);
+                    alunos_cadastrados.add(new Visão<String>(alterar.getCPF(), alterar.getNome() + " - " + alterar.getCPF()));
+                    lista_alunosComboBox.updateUI();
+                    lista_alunosComboBox.setSelectedIndex(lista_alunosComboBox.getItemCount()-1);
+                }
+           }
+        }
+    }//GEN-LAST:event_alterar_alunoButtonActionPerformed
+
+    private void remover_alunoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_remover_alunoButtonActionPerformed
+        
+        String erro = null;
+        Visão<String> visao = (Visão<String>)lista_alunosComboBox.getSelectedItem();
+        Aluno aluno = Aluno.buscarAluno(visao.getChave());
+        
+        if(visao != null) {
+            erro = controlador.removerAluno(aluno);
+            if (erro == null){
+                JOptionPane.showMessageDialog(this, "Aluno removido com sucesso!", "Informação!", JOptionPane.INFORMATION_MESSAGE); 
+                alunos_cadastrados.remove(visao);
+                lista_alunosComboBox.updateUI();
+                if (lista_alunosComboBox.getItemCount() == 0)
+                    lista_alunosComboBox.setSelectedIndex(-1);
+                else
+                    lista_alunosComboBox.setSelectedIndex(0);
+            }
+            else {
+                JOptionPane.showMessageDialog(this, erro, "ERRO", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_remover_alunoButtonActionPerformed
 
     /**
      * @param args the command line arguments
