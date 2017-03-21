@@ -26,7 +26,7 @@ public class Aluno {
             comando.setString(1, aluno.getNome());
             comando.setString(2, aluno.getSobrenome());
             comando.setString(3, aluno.getCPF());
-            comando.setString  (4, aluno.getData_nascimento().toString());
+            comando.setString(4, aluno.getData_nascimento().toString());
             comando.setFloat (5, aluno.getPeso());
             comando.setFloat (6, aluno.getAltura());
 
@@ -205,7 +205,17 @@ public class Aluno {
         return new Visão<String>(CPF, nome + "-" + CPF );
     }
     
-    
-    
+    @Override
+    public String toString() {
+        return String.format(
+                "\n\n---ALUNO---"+
+                "\nNome completo: %s"
+                + "\nCPF: %s"
+                + "\nData-Nascimento: %s"
+                + "\nPeso: %.2f"
+                + "\nAltura: %.2f"
+                + "\n %s",
+                getNome()+" "+getSobrenome(), getCPF(), getData_nascimento().toString(), getPeso(), getAltura(), endereço.toString());
+    }
     
 }

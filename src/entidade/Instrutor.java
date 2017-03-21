@@ -164,14 +164,14 @@ public Instrutor(String nome, String sobrenome, String CPF, Data data_nascimento
     }
      
     public static String alterarInstrutor(Instrutor novo){
-        String sql = "UPDATE instrutor SET Nome = ?, Sobrenome = ?, Cref = ?, Data_Nascimento = ?" + " WHERE CREF = ?";
+        String sql = "UPDATE instrutor SET Nome = ?, Sobrenome = ?, Cref = ?, Data_Nascimento = ?, CPF = ?" + " WHERE CREF = ?";
         try{
             PreparedStatement comando = BD.conexão.prepareStatement(sql);
             comando.setString(1, novo.getNome());
             comando.setString(2, novo.getSobrenome());
-            comando.setString(3, novo.getCref());
             comando.setString(4, novo.getData_nascimento().toString());
-            comando.setString(5, novo.getCref());
+            comando.setString(5, novo.getCPF());
+            comando.setString(6, novo.getCref());
             comando.executeUpdate();
             comando.close();
             
@@ -184,6 +184,18 @@ public Instrutor(String nome, String sobrenome, String CPF, Data data_nascimento
             return "Erro na alteracao do banco de dados";
             }    
         
+    }
+    
+    @Override
+    public String toString() {
+        return String.format(
+                "\n\n---INSTRUTOR---"+
+                "\nNome completo: %s"
+                + "\nCPF: %s"
+                + "\nData-Nascimento: %s"
+                + "\nCREF: %s"
+                + "\n %s",
+                getNome()+" "+getSobrenome(), getCPF(), getData_nascimento().toString(), getCref(), endereço.toString());
     }
 }
 

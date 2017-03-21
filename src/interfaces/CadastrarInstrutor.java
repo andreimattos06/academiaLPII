@@ -64,6 +64,7 @@ public class CadastrarInstrutor extends javax.swing.JFrame {
         cidade_TextField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Gerência de Instrutores");
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         nome_instrutorLabel.setText("Nome:");

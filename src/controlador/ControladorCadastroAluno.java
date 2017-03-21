@@ -30,7 +30,7 @@ public class ControladorCadastroAluno {
     }
     
     public String removerAluno (Aluno aluno) {
-        Aluno aluno1 = Aluno.buscarAluno ( aluno.getCPF());
+        Aluno aluno1 = Aluno.buscarAluno (aluno.getCPF());
         if (aluno1 != null) {
             return Aluno.removerAluno (aluno);
         } else {

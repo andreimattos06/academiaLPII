@@ -178,7 +178,7 @@ public class Ficha_Treino {
     }
     
     public static String alterarFicha(Ficha_Treino ficha){
-       String sql = "UPDATE Ficha_Treino SET Cpf_Aluno = ?, Cref_Instrutor = ?, Horario = ?, Segunda = ?, Terca = ?, Quarta = ?, Quinta = ?, Sexta = ?, Sabado = ?" + " WHERE ID = ?";
+       String sql = "UPDATE ficha_treino SET Cpf_Aluno = ?, Cref_Instrutor = ?, Horario = ?, Segunda = ?, Terca = ?, Quarta = ?, Quinta = ?, Sexta = ?, Sabado = ?" + " WHERE ID = ?";
        
        try{
             PreparedStatement comando = BD.conexão.prepareStatement(sql);
@@ -203,7 +203,7 @@ public class Ficha_Treino {
     }
     
     public static String removerTreino(int id){
-        String sql = "DELETE FROM Ficha_Treino" + " WHERE ID = ?";
+        String sql = "DELETE FROM ficha_treino" + " WHERE ID = ?";
         
         try{
             PreparedStatement comando = BD.conexão.prepareStatement(sql);
@@ -217,25 +217,18 @@ public class Ficha_Treino {
             return "Erro na Alteração no Banco de Dados";
         }
     }
-        
-        
-        
-        
-        
-        
+    
     public static TipoTreino stringToTipoTreino(String treino){
         if (treino != null){
             if (treino.equalsIgnoreCase("treino A"))
                 return TipoTreino.TreinoA;
             else if (treino.equalsIgnoreCase("treino B"))
                 return TipoTreino.TreinoB;
-            else if (treino.equalsIgnoreCase("treino C"))
+            else 
                 return TipoTreino.TreinoC;
         }
         else
             return null;
-        
-        return null;
     }
            
    public static String treinoToString(TipoTreino treino){
@@ -248,9 +241,33 @@ public class Ficha_Treino {
        else
            return null;
    }
-    
-    
-    
+   
+   
+   
+    public String toString() {
+        return String.format(
+                "\n\n---FICHA DE TREINO---"+
+                "\nCREF Instrutor: %s"
+                + "\nCPF Aluno : %s"
+                + "\nHorario: %s"
+                        + "\n--TREINOS--"
+                + "\n Segunda: %s"
+                + "\n Terça: %s"
+                + "\n Quarta: %s"
+                + "\n Quinta: %s"
+                + "\n Sexta: %s"
+                + "\n Sábado: %s",
+                instrutor.getCPF(),
+                aluno.getCPF(),
+                getHorario(),
+                treinoToString(segunda),
+                treinoToString(terça),
+                treinoToString(quarta),
+                treinoToString(quinta),
+                treinoToString(sexta),
+                treinoToString(sabado));
+                
+    }
     
     
     

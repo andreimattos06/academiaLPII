@@ -36,10 +36,13 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         gerenciar_alunosMenuItem = new javax.swing.JMenuItem();
         gerenciar_instrutoresMenuItem = new javax.swing.JMenuItem();
         fichas_treinoMenuItem = new javax.swing.JMenuItem();
+        PesquisarMenu = new javax.swing.JMenu();
+        pesquisarMenuItem = new javax.swing.JMenuItem();
 
         jMenuItem4.setText("jMenuItem4");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Academia SportLife");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
@@ -74,6 +77,18 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
         barra_menuMenuBar.add(gerenciarMenu);
 
+        PesquisarMenu.setText("Pesquisar");
+
+        pesquisarMenuItem.setText("Abrir janela");
+        pesquisarMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pesquisarMenuItemActionPerformed(evt);
+            }
+        });
+        PesquisarMenu.add(pesquisarMenuItem);
+
+        barra_menuMenuBar.add(PesquisarMenu);
+
         setJMenuBar(barra_menuMenuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -105,6 +120,11 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private void fichas_treinoMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fichas_treinoMenuItemActionPerformed
         new ControladorCadastroFichaTreino();
     }//GEN-LAST:event_fichas_treinoMenuItemActionPerformed
+
+    private void pesquisarMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisarMenuItemActionPerformed
+        new JanelaPesquisa().setVisible(true);
+        
+    }//GEN-LAST:event_pesquisarMenuItemActionPerformed
 
     /**
      * @param args the command line arguments
@@ -143,11 +163,13 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu PesquisarMenu;
     private javax.swing.JMenuBar barra_menuMenuBar;
     private javax.swing.JMenuItem fichas_treinoMenuItem;
     private javax.swing.JMenu gerenciarMenu;
     private javax.swing.JMenuItem gerenciar_alunosMenuItem;
     private javax.swing.JMenuItem gerenciar_instrutoresMenuItem;
     private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem pesquisarMenuItem;
     // End of variables declaration//GEN-END:variables
 }
