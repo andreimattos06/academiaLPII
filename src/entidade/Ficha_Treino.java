@@ -229,11 +229,13 @@ public class Ficha_Treino {
                 return TipoTreino.TreinoA;
             else if (treino.equalsIgnoreCase("treino B"))
                 return TipoTreino.TreinoB;
-            else 
+            else if (treino.equalsIgnoreCase("treino C"))
                 return TipoTreino.TreinoC;
         }
         else
             return null;
+        
+        return null;
     }
            
    public static String treinoToString(TipoTreino treino){
